@@ -10,6 +10,8 @@
     <extensions defaultExtensionNs="com.intellij">
         <applicationService serviceImplementation="com.github.nirro01.vointellijplugin.services.MyApplicationService"/>
         <projectService serviceImplementation="com.github.nirro01.vointellijplugin.services.MyProjectService"/>
+        <toolWindow id="VO DevTools" anchor="right"
+                    factoryClass="com.github.nirro01.vointellijplugin.ui.VODevToolsToolWindowFactory"/>
     </extensions>
 
     <applicationListeners>
