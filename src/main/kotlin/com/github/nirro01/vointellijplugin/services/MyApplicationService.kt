@@ -1,6 +1,6 @@
-package org.jetbrains.plugins.template.services
+package com.github.nirro01.vointellijplugin.services
 
-import org.jetbrains.plugins.template.MyBundle
+import com.github.nirro01.vointellijplugin.MyBundle
 
 class MyApplicationService {
 
