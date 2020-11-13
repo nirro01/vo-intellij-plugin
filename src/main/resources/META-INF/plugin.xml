@@ -9,13 +9,76 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <applicationService serviceImplementation="com.github.nirro01.vointellijplugin.services.MyApplicationService"/>
-        <projectService serviceImplementation="com.github.nirro01.vointellijplugin.services.MyProjectService"/>
-        <toolWindow id="VO DevTools" anchor="right"
-                    factoryClass="com.github.nirro01.vointellijplugin.ui.VODevToolsToolWindowFactory"/>
     </extensions>
 
-    <applicationListeners>
-        <listener class="com.github.nirro01.vointellijplugin.listeners.MyProjectManagerListener"
-                  topic="com.intellij.openapi.project.ProjectManagerListener"/>
-    </applicationListeners>
+    <actions>
+        <group id="Vo" text="Viaccess Orca" popup="true" icon="/images/Webp.net-resizeimage.png">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+        </group>
+        <group id="Vo.Rightv" text="RIGHTV" popup="true" >
+            <add-to-group group-id="Vo" anchor="first"/>
+        </group>
+        <group id="Vo.Rightv.Admin" text="Admin" popup="true" >
+            <add-to-group group-id="Vo.Rightv" anchor="last"/>
+        </group>
+        <group id="Vo.Rightv.Rte" text="RTE" popup="true" >
+            <add-to-group group-id="Vo.Rightv" anchor="last"/>
+        </group>
+        <group id="Vo.Rightv.Jboss" text="JBoss" popup="true" >
+            <add-to-group group-id="Vo.Rightv" anchor="last"/>
+        </group>
+        <group id="Vo.Rightv.Deploy" text="Deploy" popup="true" >
+            <add-to-group group-id="Vo.Rightv" anchor="last"/>
+        </group>
+        <action
+                id="Vo.Admin.Stop"
+                class="com.github.nirro01.vointellijplugin.actions.admin.StopAdminAction"
+                text="Stop Admin"
+                description="Stop the admin JBoss process in your All-in-one VM"
+                icon="AllIcons.Process.Stop">
+            <add-to-group group-id="Vo.Rightv.Jboss" anchor="first"/>
+        </action>
+        <action
+                id="Vo.Admin.Start"
+                class="com.github.nirro01.vointellijplugin.actions.admin.StartAdminAction"
+                text="Start Admin"
+                description="Starts the admin JBoss process in your All-in-one VM"
+                icon="AllIcons.Toolwindows.ToolWindowRun">
+            <add-to-group group-id="Vo.Rightv.Jboss" anchor="first"/>
+        </action>
+        <action
+                id="Vo.Admin.Restart"
+                class="com.github.nirro01.vointellijplugin.actions.admin.RestartAdminAction"
+                text="Restart Admin"
+                description="Restart the admin JBoss process in your All-in-one VM"
+                icon="AllIcons.Actions.Restart">
+            <add-to-group group-id="Vo.Rightv.Jboss" anchor="first"/>
+        </action>
+
+        <action
+                id="Vo.Rte.Stop"
+                class="com.github.nirro01.vointellijplugin.actions.rte.StopRTEAction"
+                text="Stop RTE"
+                description="Stop the rte JBoss process in your All-in-one VM"
+                icon="AllIcons.Process.Stop">
+            <add-to-group group-id="Vo.Rightv.Jboss" anchor="first"/>
+        </action>
+        <action
+                id="Vo.Rte.Start"
+                class="com.github.nirro01.vointellijplugin.actions.rte.StartRTEAction"
+                text="Start RTE"
+                description="Starts the rte JBoss process in your All-in-one VM"
+                icon="AllIcons.Toolwindows.ToolWindowRun">
+            <add-to-group group-id="Vo.Rightv.Jboss" anchor="first"/>
+        </action>
+        <action
+                id="Vo.Rte.Restart"
+                class="com.github.nirro01.vointellijplugin.actions.rte.RestartRTEAction"
+                text="Restart RTE"
+                description="Restart the rte JBoss process in your All-in-one VM"
+                icon="AllIcons.Actions.Restart">
+            <add-to-group group-id="Vo.Rightv.Jboss" anchor="first"/>
+        </action>
+
+    </actions>
 </idea-plugin>
