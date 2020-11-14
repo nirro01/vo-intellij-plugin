@@ -14,8 +14,6 @@ public class AppSettingsConfigurable implements Configurable {
 
     private AppSettingsComponent mySettingsComponent;
 
-    // A default constructor with no arguments is required because this implementation
-    // is registered as an applicationConfigurable EP
 
     @Nls(capitalization = Nls.Capitalization.Title)
     @Override
@@ -42,7 +40,8 @@ public class AppSettingsConfigurable implements Configurable {
                 Objects.equals(mySettingsComponent.getSshUserText(), settings.getSshUser()) &&
                 Objects.equals(mySettingsComponent.getSshPasswordText(), settings.getSshPassword()) &&
                 Objects.equals(mySettingsComponent.getSshPortText(), settings.getSshPort()) &&
-                Objects.equals(mySettingsComponent.getJbossDirectoryText(), settings.getJbossDirectory())
+                Objects.equals(mySettingsComponent.getJbossDirectoryText(), settings.getJbossDirectory()) &&
+                Objects.equals(mySettingsComponent.getLocalRightvSourcesDirectoryText(), settings.getRightvSourcesDirectory())
         );
 
     }
@@ -56,6 +55,7 @@ public class AppSettingsConfigurable implements Configurable {
         settings.setSshPassword(mySettingsComponent.getSshPasswordText());
         settings.setSshPort(mySettingsComponent.getSshPortText());
         settings.setJbossDirectory(mySettingsComponent.getJbossDirectoryText());
+        settings.setRightvSourcesDirectory(mySettingsComponent.getLocalRightvSourcesDirectoryText());
     }
 
     private void validateSettings() throws ConfigurationException {
@@ -65,6 +65,14 @@ public class AppSettingsConfigurable implements Configurable {
         validateNotEmpty(mySettingsComponent.getSshPortText(), SSH_PORT_LABEL);
         validateNumber(mySettingsComponent.getSshPortText(), SSH_PORT_LABEL);
         validateNotEmpty(mySettingsComponent.getJbossDirectoryText(), JBOSS_DIRECTORY_LABEL);
+        validateNotEmpty(mySettingsComponent.getLocalRightvSourcesDirectoryText(), LOCAL_RIGHTV_SOURCES_DIRECTORY_LABEL);
+        validateEndsWithSources(mySettingsComponent.getLocalRightvSourcesDirectoryText(), LOCAL_RIGHTV_SOURCES_DIRECTORY_LABEL);
+    }
+
+    private void validateEndsWithSources(String text, String label) throws ConfigurationException {
+        if (!text.trim().endsWith("sources")) {
+            throw new ConfigurationException(label + " is not a \"sources\" folder");
+        }
     }
 
     private void validateNumber(String text, String label) throws ConfigurationException {
@@ -89,6 +97,7 @@ public class AppSettingsConfigurable implements Configurable {
         mySettingsComponent.setSshPasswordText(settings.getSshPassword());
         mySettingsComponent.setSshPortText(settings.getSshPort());
         mySettingsComponent.setJbossDirectoryText(settings.getJbossDirectory());
+        mySettingsComponent.setLocalRightvSourcesDirectoryText(settings.getRightvSourcesDirectory());
     }
 
     @Override

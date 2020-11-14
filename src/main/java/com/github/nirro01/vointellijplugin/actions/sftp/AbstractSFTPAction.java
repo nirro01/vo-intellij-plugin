@@ -1,4 +1,4 @@
-package com.github.nirro01.vointellijplugin.actions;
+package com.github.nirro01.vointellijplugin.actions.sftp;
 
 import com.github.nirro01.vointellijplugin.services.NotificationService;
 import com.github.nirro01.vointellijplugin.settings.AppSettingsState;
@@ -7,32 +7,34 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.progress.ProgressManager;
 import com.intellij.openapi.progress.Task;
-import com.jcraft.jsch.ChannelExec;
+import com.intellij.openapi.util.Pair;
+import com.jcraft.jsch.Channel;
+import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.ByteArrayOutputStream;
 import java.text.MessageFormat;
+import java.util.List;
 
-public abstract class AbstractSSHExecAction extends AnAction {
+public abstract class AbstractSFTPAction extends AnAction {
 
     @Override
     public final void actionPerformed(@NotNull AnActionEvent e) {
         ProgressManager.getInstance().run(new Task.WithResult.Backgroundable(e.getProject(), getTitle()) {
             public void run(@NotNull ProgressIndicator progressIndicator) {
                 progressIndicator.setIndeterminate(false);
-                runSSHCommand(getCommand(), progressIndicator);
+                transferFiles(progressIndicator);
 
             }
         });
     }
 
-    private void runSSHCommand(String command, ProgressIndicator progressIndicator) {
+    private void transferFiles(ProgressIndicator progressIndicator) {
         int port = Integer.parseInt(AppSettingsState.getInstance().getSshPort());
-        NotificationService.sendInfo("SSH Exec attempt... ", buildLogMessage(command));
+        NotificationService.sendInfo("SFTP Transfer attempt... ", buildLogMessage());
         Session session = null;
-        ChannelExec channel = null;
+        Channel channel = null;
 
         try {
             session = new JSch().getSession(AppSettingsState.getInstance().getSshUser(), AppSettingsState.getInstance().getSshHost(), port);
@@ -43,19 +45,22 @@ public abstract class AbstractSSHExecAction extends AnAction {
             session.connect();
             progressIndicator.setFraction(0.3);
             progressIndicator.setText("opening channel");
-            channel = (ChannelExec) session.openChannel("exec");
-            channel.setCommand(command);
-            ByteArrayOutputStream responseStream = new ByteArrayOutputStream();
-            channel.setOutputStream(responseStream);
+            channel = session.openChannel("sftp");
             channel.connect();
-            progressIndicator.setFraction(0.8);
-            progressIndicator.setText("waiting for answer...");
-            while (channel.isConnected()) {
-                Thread.sleep(100);
+            List<Pair<String, String>> filesAndDestinationPairList = getFilesAndDestinationPairList();
+            progressIndicator.setText("transferring files...");
+            double singleFileFraction = 0.7 / filesAndDestinationPairList.size();
+            ChannelSftp channelSftp = (ChannelSftp) channel;
+            for (Pair<String, String> pair : getFilesAndDestinationPairList()) {
+                channelSftp.put((pair.getFirst()), pair.getSecond());
+                progressIndicator.setFraction(progressIndicator.getFraction() + singleFileFraction);
+                NotificationService.sendInfo("SFTP Transfer", "transferred " + pair.getFirst());
             }
+            channelSftp.exit();
+
         } catch (Exception e) {
             NotificationService.sendError("SSH Exec attempt failed",
-                    buildLogMessage(command) +
+                    buildLogMessage() +
                             System.lineSeparator() +
                             e.toString() +
                             System.lineSeparator() +
@@ -73,10 +78,10 @@ public abstract class AbstractSSHExecAction extends AnAction {
 
     abstract String getTitle();
 
-    abstract String getCommand();
+    abstract List<Pair<String, String>> getFilesAndDestinationPairList();
 
-    private String buildLogMessage(String command) {
-        return MessageFormat.format("User: {0}, Password: {1}, Host: {2}, Port: {3}, Command: {4}",
-                AppSettingsState.getInstance().getSshUser(), AppSettingsState.getInstance().getSshPassword(), AppSettingsState.getInstance().getSshHost(), Integer.parseInt(AppSettingsState.getInstance().getSshPort()), command);
+    private String buildLogMessage() {
+        return MessageFormat.format("User: {0}, Password: {1}, Host: {2}, Port: {3}",
+                AppSettingsState.getInstance().getSshUser(), AppSettingsState.getInstance().getSshPassword(), AppSettingsState.getInstance().getSshHost(), Integer.parseInt(AppSettingsState.getInstance().getSshPort()));
     }
 }

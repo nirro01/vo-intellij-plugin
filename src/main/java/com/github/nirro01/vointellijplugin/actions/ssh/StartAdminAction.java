@@ -1,4 +1,4 @@
-package com.github.nirro01.vointellijplugin.actions;
+package com.github.nirro01.vointellijplugin.actions.ssh;
 
 import com.github.nirro01.vointellijplugin.settings.AppSettingsState;
 

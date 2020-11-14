@@ -24,6 +24,7 @@ public class AppSettingsState implements PersistentStateComponent<AppSettingsSta
     private String sshPassword = "rightv";
     private String sshPort = "22";
     private String jbossDirectory = "/home/rightv/jboss";
+    private String rightvSourcesDirectory = "C:\\rightv\\sources";
 
     public static AppSettingsState getInstance() {
         return ServiceManager.getService(AppSettingsState.class);
@@ -78,5 +79,13 @@ public class AppSettingsState implements PersistentStateComponent<AppSettingsSta
 
     public void setJbossDirectory(String jbossDirectory) {
         this.jbossDirectory = jbossDirectory;
+    }
+
+    public String getRightvSourcesDirectory() {
+        return rightvSourcesDirectory;
+    }
+
+    public void setRightvSourcesDirectory(String rightvSourcesDirectory) {
+        this.rightvSourcesDirectory = rightvSourcesDirectory;
     }
 }
