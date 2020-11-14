@@ -19,11 +19,11 @@ import org.jetbrains.annotations.Nullable;
 )
 public class AppSettingsState implements PersistentStateComponent<AppSettingsState> {
 
-    public String sshHost = "xxx.xxx.xxx.xxx";
-    public String sshUser = "rightv";
-    public String sshPassword = "rightv";
-    public String sshPort = "22";
-    public String jbossDirectory = "/home/rightv/jboss";
+    private String sshHost = "xxx.xxx.xxx.xxx";
+    private String sshUser = "rightv";
+    private String sshPassword = "rightv";
+    private String sshPort = "22";
+    private String jbossDirectory = "/home/rightv/jboss";
 
     public static AppSettingsState getInstance() {
         return ServiceManager.getService(AppSettingsState.class);
@@ -40,4 +40,43 @@ public class AppSettingsState implements PersistentStateComponent<AppSettingsSta
         XmlSerializerUtil.copyBean(state, this);
     }
 
+    public String getSshHost() {
+        return sshHost;
+    }
+
+    public void setSshHost(String sshHost) {
+        this.sshHost = sshHost;
+    }
+
+    public String getSshUser() {
+        return sshUser;
+    }
+
+    public void setSshUser(String sshUser) {
+        this.sshUser = sshUser;
+    }
+
+    public String getSshPassword() {
+        return sshPassword;
+    }
+
+    public void setSshPassword(String sshPassword) {
+        this.sshPassword = sshPassword;
+    }
+
+    public String getSshPort() {
+        return sshPort;
+    }
+
+    public void setSshPort(String sshPort) {
+        this.sshPort = sshPort;
+    }
+
+    public String getJbossDirectory() {
+        return jbossDirectory;
+    }
+
+    public void setJbossDirectory(String jbossDirectory) {
+        this.jbossDirectory = jbossDirectory;
+    }
 }

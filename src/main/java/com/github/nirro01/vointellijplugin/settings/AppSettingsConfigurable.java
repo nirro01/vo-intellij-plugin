@@ -1,11 +1,14 @@
 package com.github.nirro01.vointellijplugin.settings;
 
 import com.intellij.openapi.options.Configurable;
+import com.intellij.openapi.options.ConfigurationException;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.util.Objects;
+
+import static com.github.nirro01.vointellijplugin.settings.AppSettingsComponent.*;
 
 public class AppSettingsConfigurable implements Configurable {
 
@@ -35,33 +38,57 @@ public class AppSettingsConfigurable implements Configurable {
     @Override
     public boolean isModified() {
         AppSettingsState settings = AppSettingsState.getInstance();
-        return !(Objects.equals(mySettingsComponent.getSshHostText(), settings.sshHost) &&
-                Objects.equals(mySettingsComponent.getSshUserText(), settings.sshUser) &&
-                Objects.equals(mySettingsComponent.getSshPasswordText(), settings.sshPassword) &&
-                Objects.equals(mySettingsComponent.getSshPortText(), settings.sshPort) &&
-                Objects.equals(mySettingsComponent.getJbossDirectoryText(), settings.jbossDirectory)
+        return !(Objects.equals(mySettingsComponent.getSshHostText(), settings.getSshHost()) &&
+                Objects.equals(mySettingsComponent.getSshUserText(), settings.getSshUser()) &&
+                Objects.equals(mySettingsComponent.getSshPasswordText(), settings.getSshPassword()) &&
+                Objects.equals(mySettingsComponent.getSshPortText(), settings.getSshPort()) &&
+                Objects.equals(mySettingsComponent.getJbossDirectoryText(), settings.getJbossDirectory())
         );
 
     }
 
     @Override
-    public void apply() {
+    public void apply() throws ConfigurationException {
+        validateSettings();
         AppSettingsState settings = AppSettingsState.getInstance();
-        settings.sshHost = mySettingsComponent.getSshHostText();
-        settings.sshUser = mySettingsComponent.getSshUserText();
-        settings.sshPassword = mySettingsComponent.getSshPasswordText();
-        settings.sshPort = mySettingsComponent.getSshPortText();
-        settings.jbossDirectory = mySettingsComponent.getJbossDirectoryText();
+        settings.setSshHost(mySettingsComponent.getSshHostText());
+        settings.setSshUser(mySettingsComponent.getSshUserText());
+        settings.setSshPassword(mySettingsComponent.getSshPasswordText());
+        settings.setSshPort(mySettingsComponent.getSshPortText());
+        settings.setJbossDirectory(mySettingsComponent.getJbossDirectoryText());
+    }
+
+    private void validateSettings() throws ConfigurationException {
+        validateNotEmpty(mySettingsComponent.getSshHostText(), SSH_HOST_LABEL);
+        validateNotEmpty(mySettingsComponent.getSshUserText(), SSH_USER_LABEL);
+        validateNotEmpty(mySettingsComponent.getSshPasswordText(), SSH_PASSWORD_LABEL);
+        validateNotEmpty(mySettingsComponent.getSshPortText(), SSH_PORT_LABEL);
+        validateNumber(mySettingsComponent.getSshPortText(), SSH_PORT_LABEL);
+        validateNotEmpty(mySettingsComponent.getJbossDirectoryText(), JBOSS_DIRECTORY_LABEL);
+    }
+
+    private void validateNumber(String text, String label) throws ConfigurationException {
+        try {
+            Integer.parseInt(text);
+        } catch (NumberFormatException e) {
+            throw new ConfigurationException(label + " is not a number");
+        }
+    }
+
+    private void validateNotEmpty(String text, String label) throws ConfigurationException {
+        if (text.trim().isEmpty()) {
+            throw new ConfigurationException(label + " cannot be empty");
+        }
     }
 
     @Override
     public void reset() {
         AppSettingsState settings = AppSettingsState.getInstance();
-        mySettingsComponent.setSshHostText(settings.sshHost);
-        mySettingsComponent.setSshUserText(settings.sshUser);
-        mySettingsComponent.setSshPasswordText(settings.sshPassword);
-        mySettingsComponent.setSshPortText(settings.sshPort);
-        mySettingsComponent.setJbossDirectoryText(settings.jbossDirectory);
+        mySettingsComponent.setSshHostText(settings.getSshHost());
+        mySettingsComponent.setSshUserText(settings.getSshUser());
+        mySettingsComponent.setSshPasswordText(settings.getSshPassword());
+        mySettingsComponent.setSshPortText(settings.getSshPort());
+        mySettingsComponent.setJbossDirectoryText(settings.getJbossDirectory());
     }
 
     @Override

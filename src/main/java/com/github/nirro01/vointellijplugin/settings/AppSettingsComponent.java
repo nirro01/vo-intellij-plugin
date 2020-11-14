@@ -14,14 +14,22 @@ public class AppSettingsComponent {
     private final JBTextField sshPasswordText = new JBTextField();
     private final JBTextField sshPortText = new JBTextField();
     private final JBTextField jbossDirectoryText = new JBTextField();
+
+    public static final String SSH_HOST_LABEL = "Rightv SSH Host: ";
+    public static final String SSH_USER_LABEL = "Rightv SSH User: ";
+    public static final String SSH_PASSWORD_LABEL = "Rightv SSH Password: ";
+    public static final String SSH_PORT_LABEL = "Rightv SSH Port: ";
+    public static final String JBOSS_DIRECTORY_LABEL = "JBoss directory: ";
+
+
     public AppSettingsComponent() {
         myMainPanel = FormBuilder.createFormBuilder()
-                .addLabeledComponent(new JBLabel("Rightv SSH Host: "), sshHostText, 1, false)
-                .addLabeledComponent(new JBLabel("Rightv SSH User: "), sshUserText, 1, false)
-                .addLabeledComponent(new JBLabel("Rightv SSH Password: "), sshPasswordText, 1, false)
-                .addLabeledComponent(new JBLabel("Rightv SSH Port: "), sshPortText, 1, false)
+                .addLabeledComponent(new JBLabel(SSH_HOST_LABEL), sshHostText, 1, false)
+                .addLabeledComponent(new JBLabel(SSH_USER_LABEL), sshUserText, 1, false)
+                .addLabeledComponent(new JBLabel(SSH_PASSWORD_LABEL), sshPasswordText, 1, false)
+                .addLabeledComponent(new JBLabel(SSH_PORT_LABEL), sshPortText, 1, false)
                 .addSeparator()
-                .addLabeledComponent(new JBLabel("JBoss directory: "), jbossDirectoryText, 1, false)
+                .addLabeledComponent(new JBLabel(JBOSS_DIRECTORY_LABEL), jbossDirectoryText, 1, false)
 
                 .addComponentFillVertically(new JPanel(), 0)
                 .getPanel();

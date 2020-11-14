@@ -15,7 +15,7 @@
     </extensions>
 
     <actions>
-        <group id="Vo" text="Viaccess Orca" popup="true" icon="/images/Webp.net-resizeimage.png">
+        <group id="Vo" text="Viaccess Orca" popup="true" icon="/images/logo.png">
             <add-to-group group-id="ToolsMenu" anchor="last"/>
         </group>
         <group id="Vo.Rightv" text="RIGHTV" popup="true" >
@@ -29,7 +29,7 @@
         </group>
         <action
                 id="Vo.Admin.Stop"
-                class="com.github.nirro01.vointellijplugin.actions.admin.StopAdminAction"
+                class="com.github.nirro01.vointellijplugin.actions.StopAdminAction"
                 text="Stop Admin"
                 description="Stop the admin JBoss process in your All-in-one VM"
                 icon="AllIcons.Process.Stop">
@@ -37,7 +37,7 @@
         </action>
         <action
                 id="Vo.Admin.Start"
-                class="com.github.nirro01.vointellijplugin.actions.admin.StartAdminAction"
+                class="com.github.nirro01.vointellijplugin.actions.StartAdminAction"
                 text="Start Admin"
                 description="Starts the admin JBoss process in your All-in-one VM"
                 icon="AllIcons.Toolwindows.ToolWindowRun">
@@ -45,7 +45,7 @@
         </action>
         <action
                 id="Vo.Admin.Restart"
-                class="com.github.nirro01.vointellijplugin.actions.admin.RestartAdminAction"
+                class="com.github.nirro01.vointellijplugin.actions.RestartAdminAction"
                 text="Restart Admin"
                 description="Restart the admin JBoss process in your All-in-one VM"
                 icon="AllIcons.Actions.Restart">
@@ -54,7 +54,7 @@
 
         <action
                 id="Vo.Rte.Stop"
-                class="com.github.nirro01.vointellijplugin.actions.rte.StopRTEAction"
+                class="com.github.nirro01.vointellijplugin.actions.StopRTEAction"
                 text="Stop RTE"
                 description="Stop the rte JBoss process in your All-in-one VM"
                 icon="AllIcons.Process.Stop">
@@ -62,7 +62,7 @@
         </action>
         <action
                 id="Vo.Rte.Start"
-                class="com.github.nirro01.vointellijplugin.actions.rte.StartRTEAction"
+                class="com.github.nirro01.vointellijplugin.actions.StartRTEAction"
                 text="Start RTE"
                 description="Starts the rte JBoss process in your All-in-one VM"
                 icon="AllIcons.Toolwindows.ToolWindowRun">
@@ -70,7 +70,7 @@
         </action>
         <action
                 id="Vo.Rte.Restart"
-                class="com.github.nirro01.vointellijplugin.actions.rte.RestartRTEAction"
+                class="com.github.nirro01.vointellijplugin.actions.RestartRTEAction"
                 text="Restart RTE"
                 description="Restart the rte JBoss process in your All-in-one VM"
                 icon="AllIcons.Actions.Restart">
