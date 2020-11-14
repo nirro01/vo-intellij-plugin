@@ -8,7 +8,10 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="com.github.nirro01.vointellijplugin.services.MyApplicationService"/>
+        <applicationConfigurable parentId="tools" instance="com.github.nirro01.vointellijplugin.settings.AppSettingsConfigurable"
+                                 id="com.github.nirro01.vointellijplugin.settings.AppSettingsConfigurable"
+                                 displayName="VO DevTools"/>
+        <applicationService serviceImplementation="com.github.nirro01.vointellijplugin.settings.AppSettingsState"/>
     </extensions>
 
     <actions>
@@ -17,12 +20,6 @@
         </group>
         <group id="Vo.Rightv" text="RIGHTV" popup="true" >
             <add-to-group group-id="Vo" anchor="first"/>
-        </group>
-        <group id="Vo.Rightv.Admin" text="Admin" popup="true" >
-            <add-to-group group-id="Vo.Rightv" anchor="last"/>
-        </group>
-        <group id="Vo.Rightv.Rte" text="RTE" popup="true" >
-            <add-to-group group-id="Vo.Rightv" anchor="last"/>
         </group>
         <group id="Vo.Rightv.Jboss" text="JBoss" popup="true" >
             <add-to-group group-id="Vo.Rightv" anchor="last"/>

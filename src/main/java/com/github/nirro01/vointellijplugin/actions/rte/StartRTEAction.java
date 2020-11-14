@@ -1,15 +1,11 @@
 package com.github.nirro01.vointellijplugin.actions.rte;
 
-import com.github.nirro01.vointellijplugin.services.MyApplicationService;
-import com.intellij.openapi.actionSystem.AnAction;
-import com.intellij.openapi.actionSystem.AnActionEvent;
-import com.intellij.openapi.components.ServiceManager;
-import org.jetbrains.annotations.NotNull;
+import com.github.nirro01.vointellijplugin.actions.AbstractSSHExecAction;
+import com.github.nirro01.vointellijplugin.settings.AppSettingsState;
 
-public class StartRTEAction extends AnAction {
-    @Override
-    public void actionPerformed(@NotNull AnActionEvent e) {
-        MyApplicationService service = ServiceManager.getService(MyApplicationService.class);
-        service.restartRTE(e.getProject());
+public class StartRTEAction extends AbstractSSHExecAction {
+
+    public StartRTEAction() {
+        super("Start RTE", AppSettingsState.getInstance().jbossDirectory + "/bin/jboss_init_RIGHTV.sh start rte");
     }
 }
