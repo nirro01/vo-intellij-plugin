@@ -26,6 +26,10 @@ public class AppSettingsComponent {
     public static final String JBOSS_DIRECTORY_LABEL = "Remote JBoss directory: ";
     public static final String LOCAL_RIGHTV_SOURCES_DIRECTORY_LABEL = "Local Rightv \"sources\" directory: ";
 
+    private static final String text1 = "<html>This user is used for file transfer and JBoss actions</html>";
+    private static final String text2 = "<html>In most servers the path is <b><i>/export/home/rightv/jboss</i></b> <br>Another option is <b><i>/home/rightv/jboss</i></b></html>";
+    private static final String text3 = "<html>It should be similar to <b><i>C:\\repo\\rightv\\sources</i></b></html>";
+
     public AppSettingsComponent() {
         initPanel();
         myMainPanel = FormBuilder.createFormBuilder()
@@ -33,9 +37,12 @@ public class AppSettingsComponent {
                 .addLabeledComponent(new JBLabel(SSH_USER_LABEL), sshUserText, 1, false)
                 .addLabeledComponent(new JBLabel(SSH_PASSWORD_LABEL), sshPasswordText, 1, false)
                 .addLabeledComponent(new JBLabel(SSH_PORT_LABEL), sshPortText, 1, false)
+                .addLabeledComponent(new JBLabel(), new JBLabel(text1), 1, false)
                 .addSeparator()
                 .addLabeledComponent(new JBLabel(JBOSS_DIRECTORY_LABEL), jbossDirectoryText, 1, false)
+                .addLabeledComponent(new JBLabel(), new JBLabel(text2), 1, false)
                 .addLabeledComponent(new JBLabel(LOCAL_RIGHTV_SOURCES_DIRECTORY_LABEL), localRightvSourcesDirectoryText, 1, false)
+                .addLabeledComponent(new JBLabel(), new JBLabel(text3), 1, false)
                 .addComponentFillVertically(new JPanel(), 0)
                 .getPanel();
         localRightvSourcesDirectoryText.addBrowseFolderListener((new TextBrowseFolderListener(FileChooserDescriptorFactory.createSingleFolderDescriptor())));

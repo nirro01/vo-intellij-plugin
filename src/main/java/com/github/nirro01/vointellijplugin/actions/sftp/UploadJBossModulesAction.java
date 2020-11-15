@@ -25,7 +25,7 @@ public class UploadJBossModulesAction extends AbstractSFTPAction {
             return Files.list(get(AppSettingsState.getInstance().getRightvSourcesDirectory(), "jboss-preparation", "target", "modules-jars"))
                     .filter(Files::isRegularFile)
                     .sorted()
-                    .map(file -> Pair.create(file.toString(), AppSettingsState.getInstance().getJbossDirectory() + "/modules/com/orca/common/main" + file.getFileName().toString()))
+                    .map(file -> Pair.create(file.toString(), AppSettingsState.getInstance().getJbossDirectory() + "/modules/com/orca/common/main/" + file.getFileName().toString()))
                     .collect(Collectors.toList());
         } catch (IOException e) {
             throw new UncheckedIOException(e);
