@@ -17,6 +17,7 @@ import java.text.MessageFormat;
 
 public abstract class AbstractSSHExecAction extends AnAction {
 
+    private static final String TITLE = "SSH Exec";
     @Override
     public final void actionPerformed(@NotNull AnActionEvent e) {
         ProgressManager.getInstance().run(new Task.WithResult.Backgroundable(e.getProject(), getTitle()) {
@@ -30,7 +31,7 @@ public abstract class AbstractSSHExecAction extends AnAction {
 
     private void runSSHCommand(String command, ProgressIndicator progressIndicator) {
         int port = Integer.parseInt(AppSettingsState.getInstance().getSshPort());
-        NotificationService.sendInfo("SSH Exec attempt... ", buildLogMessage(command));
+        NotificationService.sendInfo(TITLE, buildLogMessage(command));
         Session session = null;
         ChannelExec channel = null;
 
@@ -53,8 +54,9 @@ public abstract class AbstractSSHExecAction extends AnAction {
             while (channel.isConnected()) {
                 Thread.sleep(100);
             }
+            NotificationService.sendInfo(TITLE, "Command succeeded: " + buildLogMessage(command));
         } catch (Exception e) {
-            NotificationService.sendError("SSH Exec attempt failed",
+            NotificationService.sendError(TITLE,
                     buildLogMessage(command) +
                             System.lineSeparator() +
                             e.toString() +

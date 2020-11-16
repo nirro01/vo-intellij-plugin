@@ -15,9 +15,13 @@ import com.jcraft.jsch.Session;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.MessageFormat;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.List;
 
 public abstract class AbstractSFTPAction extends AnAction {
+
+    private static final String TITLE = "SFTP Upload";
 
     @Override
     public final void actionPerformed(@NotNull AnActionEvent e) {
@@ -32,7 +36,7 @@ public abstract class AbstractSFTPAction extends AnAction {
 
     private void transferFiles(ProgressIndicator progressIndicator) {
         int port = Integer.parseInt(AppSettingsState.getInstance().getSshPort());
-        NotificationService.sendInfo("SFTP Transfer attempt... ", buildLogMessage());
+        NotificationService.sendInfo(TITLE, buildLogMessage());
         Session session = null;
         Channel channel = null;
 
@@ -52,14 +56,17 @@ public abstract class AbstractSFTPAction extends AnAction {
             double singleFileFraction = 0.7 / filesAndDestinationPairList.size();
             ChannelSftp channelSftp = (ChannelSftp) channel;
             for (Pair<String, String> pair : getFilesAndDestinationPairList()) {
+                NotificationService.sendInfo(TITLE, "transferring " + pair.getFirst());
+                Instant startTime = Instant.now();
                 channelSftp.put((pair.getFirst()), pair.getSecond());
+                Instant finishTime = Instant.now();
                 progressIndicator.setFraction(progressIndicator.getFraction() + singleFileFraction);
-                NotificationService.sendInfo("SFTP Transfer", "transferred " + pair.getFirst());
+                NotificationService.sendInfo(TITLE, "transferred " + pair.getFirst() + ", Took: " + Duration.between(startTime, finishTime).toMillis() + " MS");
             }
             channelSftp.exit();
 
         } catch (Exception e) {
-            NotificationService.sendError("SSH Exec attempt failed",
+            NotificationService.sendError(TITLE,
                     buildLogMessage() +
                             System.lineSeparator() +
                             e.toString() +
