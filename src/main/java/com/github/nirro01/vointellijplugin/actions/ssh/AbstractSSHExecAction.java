@@ -1,7 +1,7 @@
 package com.github.nirro01.vointellijplugin.actions.ssh;
 
+import com.github.nirro01.vointellijplugin.actions.BackgroundAction;
 import com.github.nirro01.vointellijplugin.services.NotificationService;
-import com.github.nirro01.vointellijplugin.settings.AppSettingsState;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.progress.ProgressIndicator;
@@ -15,31 +15,39 @@ import org.jetbrains.annotations.NotNull;
 import java.io.ByteArrayOutputStream;
 import java.text.MessageFormat;
 
-public abstract class AbstractSSHExecAction extends AnAction {
+public abstract class AbstractSSHExecAction extends AnAction implements BackgroundAction {
+
+    private String command;
+    private VMDetails vmDetails;
+
+    public AbstractSSHExecAction(String command, VMDetails vmDetails) {
+        super();
+        this.command = command;
+        this.vmDetails = vmDetails;
+    }
 
     @Override
     public final void actionPerformed(@NotNull AnActionEvent e) {
-        ProgressManager.getInstance().run(new Task.WithResult.Backgroundable(e.getProject(), getTitle()) {
+        ProgressManager.getInstance().run(new Task.WithResult.Backgroundable(e.getProject(), getProgressBarTitle()) {
             public void run(@NotNull ProgressIndicator progressIndicator) {
                 progressIndicator.setIndeterminate(false);
-                runSSHCommand(getCommand(), progressIndicator);
+                runSSHCommand(command, progressIndicator);
 
             }
         });
     }
 
     private void runSSHCommand(String command, ProgressIndicator progressIndicator) {
-        int port = Integer.parseInt(AppSettingsState.getInstance().getSshPort());
-        NotificationService.sendInfo("SSH Exec attempt... ", buildLogMessage(command));
+        NotificationService.sendInfo("SSH Exec attempt... ", buildLogMessage());
         Session session = null;
         ChannelExec channel = null;
 
         try {
-            session = new JSch().getSession(AppSettingsState.getInstance().getSshUser(), AppSettingsState.getInstance().getSshHost(), port);
-            session.setPassword(AppSettingsState.getInstance().getSshPassword());
+            session = new JSch().getSession(vmDetails.user, vmDetails.host, vmDetails.port);
+            session.setPassword(vmDetails.password);
             session.setConfig("StrictHostKeyChecking", "no");
             progressIndicator.setFraction(0.0);
-            progressIndicator.setText("creating session with host " + AppSettingsState.getInstance().getSshHost());
+            progressIndicator.setText("creating session with host " + vmDetails.host);
             session.connect();
             progressIndicator.setFraction(0.3);
             progressIndicator.setText("opening channel");
@@ -55,7 +63,7 @@ public abstract class AbstractSSHExecAction extends AnAction {
             }
         } catch (Exception e) {
             NotificationService.sendError("SSH Exec attempt failed",
-                    buildLogMessage(command) +
+                    buildLogMessage() +
                             System.lineSeparator() +
                             e.toString() +
                             System.lineSeparator() +
@@ -71,12 +79,22 @@ public abstract class AbstractSSHExecAction extends AnAction {
         }
     }
 
-    abstract String getTitle();
-
-    abstract String getCommand();
-
-    private String buildLogMessage(String command) {
+    private String buildLogMessage() {
         return MessageFormat.format("User: {0}, Password: {1}, Host: {2}, Port: {3}, Command: {4}",
-                AppSettingsState.getInstance().getSshUser(), AppSettingsState.getInstance().getSshPassword(), AppSettingsState.getInstance().getSshHost(), Integer.parseInt(AppSettingsState.getInstance().getSshPort()), command);
+                vmDetails.user, vmDetails.password, vmDetails.host, vmDetails.port, command);
+    }
+
+    public static class VMDetails {
+        private final String host;
+        private final String user;
+        private final String password;
+        private final int port;
+
+        public VMDetails(String host, String user, String password, int port) {
+            this.host = host;
+            this.user = user;
+            this.password = password;
+            this.port = port;
+        }
     }
 }

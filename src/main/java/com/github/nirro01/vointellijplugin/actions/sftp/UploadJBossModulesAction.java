@@ -1,6 +1,6 @@
 package com.github.nirro01.vointellijplugin.actions.sftp;
 
-import com.github.nirro01.vointellijplugin.settings.AppSettingsState;
+import com.github.nirro01.vointellijplugin.settings.rightv.RightvSettingsState;
 import com.intellij.openapi.util.Pair;
 
 import java.io.IOException;
@@ -14,18 +14,18 @@ import static java.nio.file.Paths.get;
 public class UploadJBossModulesAction extends AbstractSFTPAction {
 
     @Override
-    String getTitle() {
+    public String getProgressBarTitle() {
         return "JBoss modules jars";
     }
 
     @Override
-    List<Pair<String, String>> getFilesAndDestinationPairList() {
+    List<Pair<String, String>> filesAndDestinationDefinition() {
 
         try {
-            return Files.list(get(AppSettingsState.getInstance().getRightvSourcesDirectory(), "jboss-preparation", "target", "modules-jars"))
+            return Files.list(get(RightvSettingsState.getInstance().getRightvSourcesDirectory(), "jboss-preparation", "target", "modules-jars"))
                     .filter(Files::isRegularFile)
                     .sorted()
-                    .map(file -> Pair.create(file.toString(), AppSettingsState.getInstance().getJbossDirectory() + "/modules/com/orca/common/main/" + file.getFileName().toString()))
+                    .map(file -> Pair.create(file.toString(), RightvSettingsState.getInstance().getJbossDirectory() + "/modules/com/orca/common/main/" + file.getFileName().toString()))
                     .collect(Collectors.toList());
         } catch (IOException e) {
             throw new UncheckedIOException(e);

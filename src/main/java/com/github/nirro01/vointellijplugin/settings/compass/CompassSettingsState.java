@@ -1,4 +1,4 @@
-package com.github.nirro01.vointellijplugin.settings;
+package com.github.nirro01.vointellijplugin.settings.compass;
 
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.ServiceManager;
@@ -14,30 +14,30 @@ import org.jetbrains.annotations.Nullable;
  * these persistent application settings are stored.
  */
 @State(
-        name = "org.intellij.sdk.settings.AppSettingsState",
+        name = "org.intellij.sdk.settings.compass.CompassSettingsState",
         storages = {@Storage("SdkSettingsPlugin.xml")}
 )
-public class AppSettingsState implements PersistentStateComponent<AppSettingsState> {
+public class CompassSettingsState implements PersistentStateComponent<CompassSettingsState> {
 
     private String sshHost = "xxx.xxx.xxx.xxx";
-    private String sshUser = "rightv";
-    private String sshPassword = "rightv";
+    private String sshUser = "compass";
+    private String sshPassword = "compass";
     private String sshPort = "22";
-    private String jbossDirectory = "/home/rightv/jboss";
-    private String rightvSourcesDirectory = "C:\\rightv\\sources";
+    private String jbossDirectory = "/home/compass/jboss";
+    private String compassSourcesDirectory = "C:\\compass\\sources";
 
-    public static AppSettingsState getInstance() {
-        return ServiceManager.getService(AppSettingsState.class);
+    public static CompassSettingsState getInstance() {
+        return ServiceManager.getService(CompassSettingsState.class);
     }
 
     @Nullable
     @Override
-    public AppSettingsState getState() {
+    public CompassSettingsState getState() {
         return this;
     }
 
     @Override
-    public void loadState(@NotNull AppSettingsState state) {
+    public void loadState(@NotNull CompassSettingsState state) {
         XmlSerializerUtil.copyBean(state, this);
     }
 
@@ -81,11 +81,11 @@ public class AppSettingsState implements PersistentStateComponent<AppSettingsSta
         this.jbossDirectory = jbossDirectory;
     }
 
-    public String getRightvSourcesDirectory() {
-        return rightvSourcesDirectory;
+    public String getCompassSourcesDirectory() {
+        return compassSourcesDirectory;
     }
 
-    public void setRightvSourcesDirectory(String rightvSourcesDirectory) {
-        this.rightvSourcesDirectory = rightvSourcesDirectory;
+    public void setCompassSourcesDirectory(String compassSourcesDirectory) {
+        this.compassSourcesDirectory = compassSourcesDirectory;
     }
 }

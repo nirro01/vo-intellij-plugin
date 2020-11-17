@@ -1,4 +1,5 @@
-package com.github.nirro01.vointellijplugin.settings;
+package com.github.nirro01.vointellijplugin.settings.compass;
+
 
 import com.intellij.openapi.options.Configurable;
 import com.intellij.openapi.options.ConfigurationException;
@@ -8,11 +9,11 @@ import org.jetbrains.annotations.Nullable;
 import javax.swing.*;
 import java.util.Objects;
 
-import static com.github.nirro01.vointellijplugin.settings.AppSettingsComponent.*;
+import static com.github.nirro01.vointellijplugin.settings.compass.CompassSettingsComponent.*;
 
-public class AppSettingsConfigurable implements Configurable {
+public class CompassSettingsConfigurable implements Configurable {
 
-    private AppSettingsComponent mySettingsComponent;
+    private CompassSettingsComponent mySettingsComponent;
 
 
     @Nls(capitalization = Nls.Capitalization.Title)
@@ -29,19 +30,19 @@ public class AppSettingsConfigurable implements Configurable {
     @Nullable
     @Override
     public JComponent createComponent() {
-        mySettingsComponent = new AppSettingsComponent();
+        mySettingsComponent = new CompassSettingsComponent();
         return mySettingsComponent.getPanel();
     }
 
     @Override
     public boolean isModified() {
-        AppSettingsState settings = AppSettingsState.getInstance();
+        CompassSettingsState settings = CompassSettingsState.getInstance();
         return !(Objects.equals(mySettingsComponent.getSshHostText(), settings.getSshHost()) &&
                 Objects.equals(mySettingsComponent.getSshUserText(), settings.getSshUser()) &&
                 Objects.equals(mySettingsComponent.getSshPasswordText(), settings.getSshPassword()) &&
                 Objects.equals(mySettingsComponent.getSshPortText(), settings.getSshPort()) &&
                 Objects.equals(mySettingsComponent.getJbossDirectoryText(), settings.getJbossDirectory()) &&
-                Objects.equals(mySettingsComponent.getLocalRightvSourcesDirectoryText(), settings.getRightvSourcesDirectory())
+                Objects.equals(mySettingsComponent.getLocalCompassSourcesDirectoryText(), settings.getCompassSourcesDirectory())
         );
 
     }
@@ -49,13 +50,13 @@ public class AppSettingsConfigurable implements Configurable {
     @Override
     public void apply() throws ConfigurationException {
         validateSettings();
-        AppSettingsState settings = AppSettingsState.getInstance();
+        CompassSettingsState settings = CompassSettingsState.getInstance();
         settings.setSshHost(mySettingsComponent.getSshHostText());
         settings.setSshUser(mySettingsComponent.getSshUserText());
         settings.setSshPassword(mySettingsComponent.getSshPasswordText());
         settings.setSshPort(mySettingsComponent.getSshPortText());
         settings.setJbossDirectory(mySettingsComponent.getJbossDirectoryText());
-        settings.setRightvSourcesDirectory(mySettingsComponent.getLocalRightvSourcesDirectoryText());
+        settings.setCompassSourcesDirectory(mySettingsComponent.getLocalCompassSourcesDirectoryText());
     }
 
     private void validateSettings() throws ConfigurationException {
@@ -65,8 +66,8 @@ public class AppSettingsConfigurable implements Configurable {
         validateNotEmpty(mySettingsComponent.getSshPortText(), SSH_PORT_LABEL);
         validateNumber(mySettingsComponent.getSshPortText(), SSH_PORT_LABEL);
         validateNotEmpty(mySettingsComponent.getJbossDirectoryText(), JBOSS_DIRECTORY_LABEL);
-        validateNotEmpty(mySettingsComponent.getLocalRightvSourcesDirectoryText(), LOCAL_RIGHTV_SOURCES_DIRECTORY_LABEL);
-        validateEndsWithSources(mySettingsComponent.getLocalRightvSourcesDirectoryText(), LOCAL_RIGHTV_SOURCES_DIRECTORY_LABEL);
+        validateNotEmpty(mySettingsComponent.getLocalCompassSourcesDirectoryText(), LOCAL_COMPASS_SOURCES_DIRECTORY_LABEL);
+        validateEndsWithSources(mySettingsComponent.getLocalCompassSourcesDirectoryText(), LOCAL_COMPASS_SOURCES_DIRECTORY_LABEL);
     }
 
     private void validateEndsWithSources(String text, String label) throws ConfigurationException {
@@ -91,13 +92,13 @@ public class AppSettingsConfigurable implements Configurable {
 
     @Override
     public void reset() {
-        AppSettingsState settings = AppSettingsState.getInstance();
+        CompassSettingsState settings = CompassSettingsState.getInstance();
         mySettingsComponent.setSshHostText(settings.getSshHost());
         mySettingsComponent.setSshUserText(settings.getSshUser());
         mySettingsComponent.setSshPasswordText(settings.getSshPassword());
         mySettingsComponent.setSshPortText(settings.getSshPort());
         mySettingsComponent.setJbossDirectoryText(settings.getJbossDirectory());
-        mySettingsComponent.setLocalRightvSourcesDirectoryText(settings.getRightvSourcesDirectory());
+        mySettingsComponent.setLocalCompassSourcesDirectoryText(settings.getCompassSourcesDirectory());
     }
 
     @Override
