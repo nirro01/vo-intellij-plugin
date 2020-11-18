@@ -9,13 +9,13 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <!-- Rightv Settings -->
-        <applicationConfigurable parentId="VODevTools"
+        <applicationConfigurable parentId="voDevtools"
                                  instance="com.github.nirro01.vointellijplugin.settings.rightv.RightvSettingsConfigurable"
                                  id="RIGHTVSettings" displayName="RIGHTV"/>
         <applicationService
                 serviceImplementation="com.github.nirro01.vointellijplugin.settings.rightv.RightvSettingsState"/>
         <!-- Compass Settings -->
-        <applicationConfigurable parentId="VODevTools"
+        <applicationConfigurable parentId="voDevtools"
                                  instance="com.github.nirro01.vointellijplugin.settings.compass.CompassSettingsConfigurable"
                                  id="CompassSettings" displayName="COMPASS"/>
         <applicationService
@@ -24,20 +24,32 @@
 
     <actions>
         <!-- Main group -->
-        <group id="Vo" text="Viaccess Orca" popup="true" icon="/images/logo.png">
+        <group id="vo" text="Viaccess Orca" popup="true" icon="/images/logo.png">
             <add-to-group group-id="ToolsMenu" anchor="last"/>
         </group>
 
         <!-- Rightv groups-->
-        <group id="Vo.Rightv" text="RIGHTV" popup="true">
-            <add-to-group group-id="Vo" anchor="first"/>
+        <group id="vo.rightv" text="RIGHTV" popup="true">
+            <add-to-group group-id="vo" anchor="first"/>
         </group>
-        <group id="Vo.Rightv.Jboss" text="JBoss" popup="true">
-            <add-to-group group-id="Vo.Rightv" anchor="last"/>
+        <group id="vo.rightv.jboss" text="JBoss" popup="true">
+            <add-to-group group-id="vo.rightv" anchor="last"/>
         </group>
-        <group id="Vo.Rightv.Deploy" text="Deploy" popup="true">
-            <add-to-group group-id="Vo.Rightv" anchor="last"/>
+        <group id="vo.rightv.deploy" text="Deploy" popup="true">
+            <add-to-group group-id="vo.rightv" anchor="last"/>
         </group>
+
+        <!-- Compass groups-->
+        <group id="vo.compass" text="COMPASS" popup="true">
+            <add-to-group group-id="vo" anchor="first"/>
+        </group>
+        <group id="vo.compass.jboss" text="JBoss" popup="true">
+            <add-to-group group-id="vo.compass" anchor="last"/>
+        </group>
+        <group id="vo.compass.deploy" text="Deploy" popup="true">
+            <add-to-group group-id="vo.compass" anchor="last"/>
+        </group>
+
         <!-- Rightv actions-->
         <action
                 id="Vo.Admin.Stop"
@@ -45,7 +57,7 @@
                 text="Stop Admin"
                 description="Stop the admin JBoss process in your All-in-one VM"
                 icon="AllIcons.Process.Stop">
-            <add-to-group group-id="Vo.Rightv.Jboss" anchor="first"/>
+            <add-to-group group-id="vo.rightv.jboss" anchor="first"/>
         </action>
         <action
                 id="Vo.Admin.Start"
@@ -53,7 +65,7 @@
                 text="Start Admin"
                 description="Starts the admin JBoss process in your All-in-one VM"
                 icon="AllIcons.Toolwindows.ToolWindowRun">
-            <add-to-group group-id="Vo.Rightv.Jboss" anchor="first"/>
+            <add-to-group group-id="vo.rightv.jboss" anchor="first"/>
         </action>
         <action
                 id="Vo.Admin.Restart"
@@ -61,16 +73,15 @@
                 text="Restart Admin"
                 description="Restart the admin JBoss process in your All-in-one VM"
                 icon="AllIcons.Actions.Restart">
-            <add-to-group group-id="Vo.Rightv.Jboss" anchor="first"/>
+            <add-to-group group-id="vo.rightv.jboss" anchor="first"/>
         </action>
-
         <action
                 id="Vo.Rte.Stop"
                 class="com.github.nirro01.vointellijplugin.actions.ssh.rightv.StopRTEAction"
                 text="Stop RTE"
                 description="Stop the rte JBoss process in your All-in-one VM"
                 icon="AllIcons.Process.Stop">
-            <add-to-group group-id="Vo.Rightv.Jboss" anchor="first"/>
+            <add-to-group group-id="vo.rightv.jboss" anchor="first"/>
         </action>
         <action
                 id="Vo.Rte.Start"
@@ -78,7 +89,7 @@
                 text="Start RTE"
                 description="Starts the rte JBoss process in your All-in-one VM"
                 icon="AllIcons.Toolwindows.ToolWindowRun">
-            <add-to-group group-id="Vo.Rightv.Jboss" anchor="first"/>
+            <add-to-group group-id="vo.rightv.jboss" anchor="first"/>
         </action>
         <action
                 id="Vo.Rte.Restart"
@@ -86,31 +97,67 @@
                 text="Restart RTE"
                 description="Restart the rte JBoss process in your All-in-one VM"
                 icon="AllIcons.Actions.Restart">
-            <add-to-group group-id="Vo.Rightv.Jboss" anchor="first"/>
+            <add-to-group group-id="vo.rightv.jboss" anchor="first"/>
         </action>
         <action
                 id="Vo.Admin.Upload"
-                class="com.github.nirro01.vointellijplugin.actions.sftp.UploadAdminEarsAction"
+                class="com.github.nirro01.vointellijplugin.actions.sftp.rightv.UploadAdminEarsAction"
                 text="Upload Admin EARs"
                 description="Upload Admin EARs"
                 icon="AllIcons.Actions.Upload">
-            <add-to-group group-id="Vo.Rightv.Deploy" anchor="first"/>
+            <add-to-group group-id="vo.rightv.deploy" anchor="first"/>
         </action>
         <action
                 id="Vo.Rte.Upload"
-                class="com.github.nirro01.vointellijplugin.actions.sftp.UploadRTEEarsAction"
+                class="com.github.nirro01.vointellijplugin.actions.sftp.rightv.UploadRTEEarsAction"
                 text="Upload RTE EARs"
                 description="Upload RTE EARs"
                 icon="AllIcons.Actions.Upload">
-            <add-to-group group-id="Vo.Rightv.Deploy" anchor="first"/>
+            <add-to-group group-id="vo.rightv.deploy" anchor="first"/>
         </action>
         <action
                 id="Vo.Modules.Upload"
-                class="com.github.nirro01.vointellijplugin.actions.sftp.UploadJBossModulesAction"
+                class="com.github.nirro01.vointellijplugin.actions.sftp.rightv.UploadJBossModulesAction"
                 text="Upload JBoss Module Jars"
                 description="Upload JBoss module jars"
                 icon="AllIcons.Actions.Upload">
-            <add-to-group group-id="Vo.Rightv.Deploy" anchor="first"/>
+            <add-to-group group-id="vo.rightv.deploy" anchor="first"/>
+        </action>
+
+        <!-- Compass actions-->
+
+        <action
+                id="Vo.Compass.Stop"
+                class="com.github.nirro01.vointellijplugin.actions.ssh.compass.StopCompassAction"
+                text="Stop Compass"
+                description="Stop the admin JBoss process in your All-in-one VM"
+                icon="AllIcons.Process.Stop">
+            <add-to-group group-id="vo.compass.jboss" anchor="first"/>
+        </action>
+        <action
+                id="Vo.Compass.Start"
+                class="com.github.nirro01.vointellijplugin.actions.ssh.compass.StartCompassAction"
+                text="Start Compass"
+                description="Starts the admin JBoss process in your All-in-one VM"
+                icon="AllIcons.Toolwindows.ToolWindowRun">
+            <add-to-group group-id="vo.compass.jboss" anchor="first"/>
+        </action>
+        <action
+                id="Vo.Compass.Restart"
+                class="com.github.nirro01.vointellijplugin.actions.ssh.compass.RestartCompassAction"
+                text="Restart Compass"
+                description="Restart the admin JBoss process in your All-in-one VM"
+                icon="AllIcons.Actions.Restart">
+            <add-to-group group-id="vo.compass.jboss" anchor="first"/>
+        </action>
+
+        <action
+                id="Vo.Compass.UploadCompassWar"
+                class="com.github.nirro01.vointellijplugin.actions.sftp.compass.UploadCompassWarAction"
+                text="Upload Compass War"
+                description="Upload compass war"
+                icon="AllIcons.Actions.Upload">
+            <add-to-group group-id="vo.compass.deploy" anchor="first"/>
         </action>
     </actions>
 </idea-plugin>

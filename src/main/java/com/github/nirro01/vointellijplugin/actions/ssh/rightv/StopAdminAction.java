@@ -9,7 +9,7 @@ public class StopAdminAction extends AbstractRightvSSHAction {
     }
 
     @Override
-    public String getProgressBarTitle() {
+    public String progressBarTitle() {
         return "Stop Admin";
     }
 }

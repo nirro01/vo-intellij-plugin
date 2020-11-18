@@ -9,7 +9,7 @@ public class StartRTEAction extends AbstractRightvSSHAction {
     }
 
     @Override
-    public String getProgressBarTitle() {
+    public String progressBarTitle() {
         return "Start RTE";
     }
 
