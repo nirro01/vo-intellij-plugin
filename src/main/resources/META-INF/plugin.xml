@@ -29,7 +29,7 @@
         </group>
 
         <!-- Rightv groups-->
-        <group id="vo.rightv" text="RIGHTV" popup="true">
+        <group id="vo.rightv" text="Rightv" popup="true">
             <add-to-group group-id="vo" anchor="first"/>
         </group>
         <group id="vo.rightv.jboss" text="JBoss" popup="true">
@@ -40,7 +40,7 @@
         </group>
 
         <!-- Compass groups-->
-        <group id="vo.compass" text="COMPASS" popup="true">
+        <group id="vo.compass" text="Compass" popup="true">
             <add-to-group group-id="vo" anchor="first"/>
         </group>
         <group id="vo.compass.jboss" text="JBoss" popup="true">
@@ -48,6 +48,11 @@
         </group>
         <group id="vo.compass.deploy" text="Deploy" popup="true">
             <add-to-group group-id="vo.compass" anchor="last"/>
+        </group>
+
+        <!-- Leonardo groups-->
+        <group id="vo.leonardo" text="Leonardo" popup="true">
+            <add-to-group group-id="vo" anchor="last"/>
         </group>
 
         <!-- Rightv actions-->
@@ -170,5 +175,29 @@
             <add-to-group group-id="vo.compass.deploy" anchor="last"/>
         </action>
 
+        <!-- Leonardo Actions -->
+        <action
+                id="Vo.Leonardo.LeonardoLinks"
+                class="com.github.nirro01.vointellijplugin.actions.browse.LeonardoLinksAction"
+                text="Leonardo Links"
+                description="Find microservice links - git / jenkins / swagger">
+            <add-to-group group-id="vo.leonardo" anchor="first"/>
+        </action>
+
+        <action
+                id="Vo.Leonardo.CreateTemporaryNamespace"
+                class="com.github.nirro01.vointellijplugin.actions.browse.CreateTemporaryNamespaceAction"
+                text="Create Temporary Namespace"
+                description="Open create temporary namespace job in jenkins">
+            <add-to-group group-id="vo.leonardo" anchor="first"/>
+        </action>
+
+        <action
+                id="Vo.Leonardo.DeleteTemporaryNamespace"
+                class="com.github.nirro01.vointellijplugin.actions.browse.DeleteTemporaryNamespaceAction"
+                text="Delete Temporary Namespace"
+                description="Delete create temporary namespace job in jenkins">
+            <add-to-group group-id="vo.leonardo" anchor="first"/>
+        </action>
     </actions>
 </idea-plugin>
