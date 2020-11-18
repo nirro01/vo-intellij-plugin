@@ -121,7 +121,7 @@
                 text="Upload JBoss Module Jars"
                 description="Upload JBoss module jars"
                 icon="AllIcons.Actions.Upload">
-            <add-to-group group-id="vo.rightv.deploy" anchor="first"/>
+            <add-to-group group-id="vo.rightv.deploy" anchor="last"/>
         </action>
 
         <!-- Compass actions-->
@@ -130,7 +130,7 @@
                 id="Vo.Compass.Stop"
                 class="com.github.nirro01.vointellijplugin.actions.ssh.compass.StopCompassAction"
                 text="Stop Compass"
-                description="Stop the admin JBoss process in your All-in-one VM"
+                description="Stop Compass JBoss process in your All-in-one VM"
                 icon="AllIcons.Process.Stop">
             <add-to-group group-id="vo.compass.jboss" anchor="first"/>
         </action>
@@ -138,16 +138,8 @@
                 id="Vo.Compass.Start"
                 class="com.github.nirro01.vointellijplugin.actions.ssh.compass.StartCompassAction"
                 text="Start Compass"
-                description="Starts the admin JBoss process in your All-in-one VM"
+                description="Starts Compass JBoss process in your All-in-one VM"
                 icon="AllIcons.Toolwindows.ToolWindowRun">
-            <add-to-group group-id="vo.compass.jboss" anchor="first"/>
-        </action>
-        <action
-                id="Vo.Compass.Restart"
-                class="com.github.nirro01.vointellijplugin.actions.ssh.compass.RestartCompassAction"
-                text="Restart Compass"
-                description="Restart the admin JBoss process in your All-in-one VM"
-                icon="AllIcons.Actions.Restart">
             <add-to-group group-id="vo.compass.jboss" anchor="first"/>
         </action>
 
@@ -159,5 +151,24 @@
                 icon="AllIcons.Actions.Upload">
             <add-to-group group-id="vo.compass.deploy" anchor="first"/>
         </action>
+
+        <action
+                id="Vo.Compass.UploadSearchWar"
+                class="com.github.nirro01.vointellijplugin.actions.sftp.compass.UploadSearchWarAction"
+                text="Upload Search War"
+                description="Upload Search war"
+                icon="AllIcons.Actions.Upload">
+            <add-to-group group-id="vo.compass.deploy" anchor="first"/>
+        </action>
+
+        <action
+                id="Vo.Compass.UploadETLWar"
+                class="com.github.nirro01.vointellijplugin.actions.sftp.compass.UploadETLWarAction"
+                text="Upload ETL War"
+                description="Upload ETL war"
+                icon="AllIcons.Actions.Upload">
+            <add-to-group group-id="vo.compass.deploy" anchor="last"/>
+        </action>
+
     </actions>
 </idea-plugin>

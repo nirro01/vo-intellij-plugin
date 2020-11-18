@@ -23,7 +23,7 @@ public class CompassSettingsState implements PersistentStateComponent<CompassSet
     private String sshUser = "compass";
     private String sshPassword = "compass";
     private String sshPort = "22";
-    private String jbossDirectory = "/home/compass/jboss";
+    private String jbossDirectory = "/export/home/compass/compass/jboss";
     private String compassSourcesDirectory = "C:\\compass\\sources";
 
     public static CompassSettingsState getInstance() {

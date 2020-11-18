@@ -38,7 +38,7 @@ public abstract class AbstractSSHExecAction extends AnAction implements Backgrou
     }
 
     private void runSSHCommand(String command, ProgressIndicator progressIndicator) {
-        NotificationService.sendInfo("SSH Exec attempt... ", vmDetails.buildLogMessage());
+        NotificationService.sendInfo("SSH Exec attempt... ", vmDetails.buildLogMessage() + ", command: " + command);
         Session session = null;
         ChannelExec channel = null;
 

@@ -16,17 +16,17 @@ public class CompassSettingsComponent {
     public static final String SSH_PASSWORD_LABEL = "Compass SSH Password: ";
     public static final String SSH_PORT_LABEL = "Compass SSH Port: ";
     public static final String JBOSS_DIRECTORY_LABEL = "Remote JBoss directory: ";
-    public static final String LOCAL_COMPASS_SOURCES_DIRECTORY_LABEL = "Local Compass \"sources\" directory: ";
+    public static final String LOCAL_COMPASS_SOURCES_DIRECTORY_LABEL = "Local Compass \"polo-3.1-dev\" directory: ";
     private static final String TEXT_1 = "<html>This user is used for file transfer and JBoss actions</html>";
-    private static final String TEXT_2 = "<html>In most servers the path is <b><i>/export/home/compass/jboss</i></b> <br>Another option is <b><i>/home/compass/jboss</i></b></html>";
-    private static final String TEXT_3 = "<html>It should be similar to <b><i>C:\\repo\\compass\\sources</i></b></html>";
+    private static final String TEXT_2 = "<html>In most servers the path is <b><i>/export/home/compass/compass/jboss</i></b></html>";
+    private static final String TEXT_3 = "<html>It should be similar to <b><i>C:\\repo\\compass\\polo-3.1-dev</i></b></html>";
     private final JPanel myMainPanel;
     private JBTextField sshHostText;
     private JBTextField sshUserText;
     private JBTextField sshPasswordText;
     private JBTextField sshPortText;
     private JBTextField jbossDirectoryText;
-    private TextFieldWithBrowseButton localCompassSourcesDirectoryText;
+    private TextFieldWithBrowseButton localCompassPolo1DevDirectoryText;
 
     public CompassSettingsComponent() {
         initPanel();
@@ -39,11 +39,11 @@ public class CompassSettingsComponent {
                 .addSeparator()
                 .addLabeledComponent(new JBLabel(JBOSS_DIRECTORY_LABEL), jbossDirectoryText, 1, false)
                 .addLabeledComponent(new JBLabel(), new JBLabel(TEXT_2), 1, false)
-                .addLabeledComponent(new JBLabel(LOCAL_COMPASS_SOURCES_DIRECTORY_LABEL), localCompassSourcesDirectoryText, 1, false)
+                .addLabeledComponent(new JBLabel(LOCAL_COMPASS_SOURCES_DIRECTORY_LABEL), localCompassPolo1DevDirectoryText, 1, false)
                 .addLabeledComponent(new JBLabel(), new JBLabel(TEXT_3), 1, false)
                 .addComponentFillVertically(new JPanel(), 0)
                 .getPanel();
-        localCompassSourcesDirectoryText.addBrowseFolderListener((new TextBrowseFolderListener(FileChooserDescriptorFactory.createSingleFolderDescriptor())));
+        localCompassPolo1DevDirectoryText.addBrowseFolderListener((new TextBrowseFolderListener(FileChooserDescriptorFactory.createSingleFolderDescriptor())));
     }
 
     private void initPanel() {
@@ -52,7 +52,7 @@ public class CompassSettingsComponent {
         sshPasswordText = new JBTextField();
         sshPortText = new JBTextField();
         jbossDirectoryText = new JBTextField();
-        localCompassSourcesDirectoryText = new TextFieldWithBrowseButton();
+        localCompassPolo1DevDirectoryText = new TextFieldWithBrowseButton();
     }
 
     public JPanel getPanel() {
@@ -109,11 +109,11 @@ public class CompassSettingsComponent {
     }
 
     @NotNull
-    public String getLocalCompassSourcesDirectoryText() {
-        return localCompassSourcesDirectoryText.getText();
+    public String getLocalCompassPolo1DevDirectoryText() {
+        return localCompassPolo1DevDirectoryText.getText();
     }
 
-    public void setLocalCompassSourcesDirectoryText(@NotNull String newText) {
-        localCompassSourcesDirectoryText.setText(newText);
+    public void setLocalCompassPolo1DevDirectoryText(@NotNull String newText) {
+        localCompassPolo1DevDirectoryText.setText(newText);
     }
 }

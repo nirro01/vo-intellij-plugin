@@ -8,7 +8,7 @@ import java.util.List;
 
 import static java.nio.file.Paths.get;
 
-public class UploadCompassWarAction extends AbstractCompassSFTPAction {
+public class UploadETLWarAction extends AbstractCompassSFTPAction {
 
     @Override
     public String progressBarTitle() {
@@ -19,8 +19,8 @@ public class UploadCompassWarAction extends AbstractCompassSFTPAction {
     public List<Pair<String, String>> filesAndDestinationDefinition() {
 
         return Collections.singletonList(
-                Pair.create(get(CompassSettingsState.getInstance().getCompassSourcesDirectory(), "facade", "target", "compass.war").toString(),
-                        CompassSettingsState.getInstance().getJbossDirectory() + "standalone/deployments/compass.war")
+                Pair.create(get(CompassSettingsState.getInstance().getCompassSourcesDirectory(), "etl-scheduler", "target", "compass-etl.war").toString(),
+                        CompassSettingsState.getInstance().getJbossDirectory() + "standalone/deployments/compass-etl.war")
 
         );
     }

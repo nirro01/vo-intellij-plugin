@@ -5,12 +5,12 @@ import com.github.nirro01.vointellijplugin.settings.compass.CompassSettingsState
 public class StartCompassAction extends AbstractCompassSSHAction {
 
     public StartCompassAction() {
-        super(CompassSettingsState.getInstance().getJbossDirectory() + "/bin/jboss_init_RIGHTV.sh restart admin");
+        super(CompassSettingsState.getInstance().getJbossDirectory() + "/bin/compass.sh");
     }
 
     @Override
     public String progressBarTitle() {
-        return "Stop Compass";
+        return "Start Compass";
     }
 
 }

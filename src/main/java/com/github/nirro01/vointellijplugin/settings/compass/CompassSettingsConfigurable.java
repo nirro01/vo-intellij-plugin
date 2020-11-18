@@ -42,7 +42,7 @@ public class CompassSettingsConfigurable implements Configurable {
                 Objects.equals(mySettingsComponent.getSshPasswordText(), settings.getSshPassword()) &&
                 Objects.equals(mySettingsComponent.getSshPortText(), settings.getSshPort()) &&
                 Objects.equals(mySettingsComponent.getJbossDirectoryText(), settings.getJbossDirectory()) &&
-                Objects.equals(mySettingsComponent.getLocalCompassSourcesDirectoryText(), settings.getCompassSourcesDirectory())
+                Objects.equals(mySettingsComponent.getLocalCompassPolo1DevDirectoryText(), settings.getCompassSourcesDirectory())
         );
 
     }
@@ -56,7 +56,7 @@ public class CompassSettingsConfigurable implements Configurable {
         settings.setSshPassword(mySettingsComponent.getSshPasswordText());
         settings.setSshPort(mySettingsComponent.getSshPortText());
         settings.setJbossDirectory(mySettingsComponent.getJbossDirectoryText());
-        settings.setCompassSourcesDirectory(mySettingsComponent.getLocalCompassSourcesDirectoryText());
+        settings.setCompassSourcesDirectory(mySettingsComponent.getLocalCompassPolo1DevDirectoryText());
     }
 
     private void validateSettings() throws ConfigurationException {
@@ -66,12 +66,12 @@ public class CompassSettingsConfigurable implements Configurable {
         validateNotEmpty(mySettingsComponent.getSshPortText(), SSH_PORT_LABEL);
         validateNumber(mySettingsComponent.getSshPortText(), SSH_PORT_LABEL);
         validateNotEmpty(mySettingsComponent.getJbossDirectoryText(), JBOSS_DIRECTORY_LABEL);
-        validateNotEmpty(mySettingsComponent.getLocalCompassSourcesDirectoryText(), LOCAL_COMPASS_SOURCES_DIRECTORY_LABEL);
-        validateEndsWithSources(mySettingsComponent.getLocalCompassSourcesDirectoryText(), LOCAL_COMPASS_SOURCES_DIRECTORY_LABEL);
+        validateNotEmpty(mySettingsComponent.getLocalCompassPolo1DevDirectoryText(), LOCAL_COMPASS_SOURCES_DIRECTORY_LABEL);
+        validateDirectory(mySettingsComponent.getLocalCompassPolo1DevDirectoryText(), LOCAL_COMPASS_SOURCES_DIRECTORY_LABEL);
     }
 
-    private void validateEndsWithSources(String text, String label) throws ConfigurationException {
-        if (!text.trim().endsWith("sources")) {
+    private void validateDirectory(String text, String label) throws ConfigurationException {
+        if (!text.trim().endsWith("polo-3.1-dev")) {
             throw new ConfigurationException(label + " is not a \"sources\" folder");
         }
     }
@@ -98,7 +98,7 @@ public class CompassSettingsConfigurable implements Configurable {
         mySettingsComponent.setSshPasswordText(settings.getSshPassword());
         mySettingsComponent.setSshPortText(settings.getSshPort());
         mySettingsComponent.setJbossDirectoryText(settings.getJbossDirectory());
-        mySettingsComponent.setLocalCompassSourcesDirectoryText(settings.getCompassSourcesDirectory());
+        mySettingsComponent.setLocalCompassPolo1DevDirectoryText(settings.getCompassSourcesDirectory());
     }
 
     @Override
