@@ -1,6 +1,7 @@
 package com.github.nirro01.vointellijplugin.actions.ssh;
 
 import com.github.nirro01.vointellijplugin.actions.BackgroundAction;
+import com.github.nirro01.vointellijplugin.actions.common.VMDetails;
 import com.github.nirro01.vointellijplugin.services.NotificationService;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -13,12 +14,11 @@ import com.jcraft.jsch.Session;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.ByteArrayOutputStream;
-import java.text.MessageFormat;
 
 public abstract class AbstractSSHExecAction extends AnAction implements BackgroundAction {
 
-    private String command;
-    private VMDetails vmDetails;
+    private final String command;
+    private final VMDetails vmDetails;
 
     public AbstractSSHExecAction(String command, VMDetails vmDetails) {
         super();
@@ -28,7 +28,7 @@ public abstract class AbstractSSHExecAction extends AnAction implements Backgrou
 
     @Override
     public final void actionPerformed(@NotNull AnActionEvent e) {
-        ProgressManager.getInstance().run(new Task.WithResult.Backgroundable(e.getProject(), getProgressBarTitle()) {
+        ProgressManager.getInstance().run(new Task.WithResult.Backgroundable(e.getProject(), progressBarTitle()) {
             public void run(@NotNull ProgressIndicator progressIndicator) {
                 progressIndicator.setIndeterminate(false);
                 runSSHCommand(command, progressIndicator);
@@ -38,16 +38,16 @@ public abstract class AbstractSSHExecAction extends AnAction implements Backgrou
     }
 
     private void runSSHCommand(String command, ProgressIndicator progressIndicator) {
-        NotificationService.sendInfo("SSH Exec attempt... ", buildLogMessage());
+        NotificationService.sendInfo("SSH Exec attempt... ", vmDetails.buildLogMessage());
         Session session = null;
         ChannelExec channel = null;
 
         try {
-            session = new JSch().getSession(vmDetails.user, vmDetails.host, vmDetails.port);
-            session.setPassword(vmDetails.password);
+            session = new JSch().getSession(vmDetails.getUser(), vmDetails.getHost(), vmDetails.getPort());
+            session.setPassword(vmDetails.getPassword());
             session.setConfig("StrictHostKeyChecking", "no");
             progressIndicator.setFraction(0.0);
-            progressIndicator.setText("creating session with host " + vmDetails.host);
+            progressIndicator.setText("creating session with host " + vmDetails.getHost());
             session.connect();
             progressIndicator.setFraction(0.3);
             progressIndicator.setText("opening channel");
@@ -63,7 +63,7 @@ public abstract class AbstractSSHExecAction extends AnAction implements Backgrou
             }
         } catch (Exception e) {
             NotificationService.sendError("SSH Exec attempt failed",
-                    buildLogMessage() +
+                    vmDetails.buildLogMessage() +
                             System.lineSeparator() +
                             e.toString() +
                             System.lineSeparator() +
@@ -79,22 +79,4 @@ public abstract class AbstractSSHExecAction extends AnAction implements Backgrou
         }
     }
 
-    private String buildLogMessage() {
-        return MessageFormat.format("User: {0}, Password: {1}, Host: {2}, Port: {3}, Command: {4}",
-                vmDetails.user, vmDetails.password, vmDetails.host, vmDetails.port, command);
-    }
-
-    public static class VMDetails {
-        private final String host;
-        private final String user;
-        private final String password;
-        private final int port;
-
-        public VMDetails(String host, String user, String password, int port) {
-            this.host = host;
-            this.user = user;
-            this.password = password;
-            this.port = port;
-        }
-    }
 }

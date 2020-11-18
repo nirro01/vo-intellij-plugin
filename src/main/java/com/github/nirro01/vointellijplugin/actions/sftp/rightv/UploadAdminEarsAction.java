@@ -1,4 +1,4 @@
-package com.github.nirro01.vointellijplugin.actions.sftp;
+package com.github.nirro01.vointellijplugin.actions.sftp.rightv;
 
 import com.github.nirro01.vointellijplugin.settings.rightv.RightvSettingsState;
 import com.intellij.openapi.util.Pair;
@@ -8,15 +8,15 @@ import java.util.List;
 
 import static java.nio.file.Paths.get;
 
-public class UploadAdminEarsAction extends AbstractSFTPAction {
+public class UploadAdminEarsAction extends AbstractRightvSFTPAction {
 
     @Override
-    public String getProgressBarTitle() {
+    public String progressBarTitle() {
         return "Upload Admin Ears";
     }
 
-    @Override
-    List<Pair<String, String>> filesAndDestinationDefinition() {
+
+    public List<Pair<String, String>> filesAndDestinationDefinition() {
 
         return Arrays.asList(
                 //translator.ear
