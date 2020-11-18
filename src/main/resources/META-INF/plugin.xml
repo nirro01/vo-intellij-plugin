@@ -1,35 +1,47 @@
 <idea-plugin>
     <id>com.github.nirro01.vointellijplugin</id>
-    <name>vo-intellij-plugin</name>
-    <vendor>nirro01</vendor>
-
+    <name>Vo-DevTools</name>
+    <vendor>Viaccess Orca</vendor>
+    <resource-bundle>messages.VOIntellijPluginBundle</resource-bundle>
     <!-- Product and plugin compatibility requirements -->
     <!-- https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationConfigurable parentId="tools" instance="com.github.nirro01.vointellijplugin.settings.AppSettingsConfigurable"
-                                 id="com.github.nirro01.vointellijplugin.settings.AppSettingsConfigurable"
-                                 displayName="VO DevTools"/>
-        <applicationService serviceImplementation="com.github.nirro01.vointellijplugin.settings.AppSettingsState"/>
+        <!-- Rightv Settings -->
+        <applicationConfigurable parentId="VODevTools"
+                                 instance="com.github.nirro01.vointellijplugin.settings.rightv.RightvSettingsConfigurable"
+                                 id="RIGHTVSettings" displayName="RIGHTV"/>
+        <applicationService
+                serviceImplementation="com.github.nirro01.vointellijplugin.settings.rightv.RightvSettingsState"/>
+        <!-- Compass Settings -->
+        <applicationConfigurable parentId="VODevTools"
+                                 instance="com.github.nirro01.vointellijplugin.settings.compass.CompassSettingsConfigurable"
+                                 id="CompassSettings" displayName="COMPASS"/>
+        <applicationService
+                serviceImplementation="com.github.nirro01.vointellijplugin.settings.compass.CompassSettingsState"/>
     </extensions>
 
     <actions>
+        <!-- Main group -->
         <group id="Vo" text="Viaccess Orca" popup="true" icon="/images/logo.png">
             <add-to-group group-id="ToolsMenu" anchor="last"/>
         </group>
-        <group id="Vo.Rightv" text="RIGHTV" popup="true" >
+
+        <!-- Rightv groups-->
+        <group id="Vo.Rightv" text="RIGHTV" popup="true">
             <add-to-group group-id="Vo" anchor="first"/>
         </group>
-        <group id="Vo.Rightv.Jboss" text="JBoss" popup="true" >
+        <group id="Vo.Rightv.Jboss" text="JBoss" popup="true">
             <add-to-group group-id="Vo.Rightv" anchor="last"/>
         </group>
-        <group id="Vo.Rightv.Deploy" text="Deploy" popup="true" >
+        <group id="Vo.Rightv.Deploy" text="Deploy" popup="true">
             <add-to-group group-id="Vo.Rightv" anchor="last"/>
         </group>
+        <!-- Rightv actions-->
         <action
                 id="Vo.Admin.Stop"
-                class="com.github.nirro01.vointellijplugin.actions.ssh.StopAdminAction"
+                class="com.github.nirro01.vointellijplugin.actions.ssh.rightv.StopAdminAction"
                 text="Stop Admin"
                 description="Stop the admin JBoss process in your All-in-one VM"
                 icon="AllIcons.Process.Stop">
@@ -37,7 +49,7 @@
         </action>
         <action
                 id="Vo.Admin.Start"
-                class="com.github.nirro01.vointellijplugin.actions.ssh.StartAdminAction"
+                class="com.github.nirro01.vointellijplugin.actions.ssh.rightv.StartAdminAction"
                 text="Start Admin"
                 description="Starts the admin JBoss process in your All-in-one VM"
                 icon="AllIcons.Toolwindows.ToolWindowRun">
@@ -45,7 +57,7 @@
         </action>
         <action
                 id="Vo.Admin.Restart"
-                class="com.github.nirro01.vointellijplugin.actions.ssh.RestartAdminAction"
+                class="com.github.nirro01.vointellijplugin.actions.ssh.rightv.RestartAdminAction"
                 text="Restart Admin"
                 description="Restart the admin JBoss process in your All-in-one VM"
                 icon="AllIcons.Actions.Restart">
@@ -54,7 +66,7 @@
 
         <action
                 id="Vo.Rte.Stop"
-                class="com.github.nirro01.vointellijplugin.actions.ssh.StopRTEAction"
+                class="com.github.nirro01.vointellijplugin.actions.ssh.rightv.StopRTEAction"
                 text="Stop RTE"
                 description="Stop the rte JBoss process in your All-in-one VM"
                 icon="AllIcons.Process.Stop">
@@ -62,7 +74,7 @@
         </action>
         <action
                 id="Vo.Rte.Start"
-                class="com.github.nirro01.vointellijplugin.actions.ssh.StartRTEAction"
+                class="com.github.nirro01.vointellijplugin.actions.ssh.rightv.StartRTEAction"
                 text="Start RTE"
                 description="Starts the rte JBoss process in your All-in-one VM"
                 icon="AllIcons.Toolwindows.ToolWindowRun">
@@ -70,7 +82,7 @@
         </action>
         <action
                 id="Vo.Rte.Restart"
-                class="com.github.nirro01.vointellijplugin.actions.ssh.RestartRTEAction"
+                class="com.github.nirro01.vointellijplugin.actions.ssh.rightv.RestartRTEAction"
                 text="Restart RTE"
                 description="Restart the rte JBoss process in your All-in-one VM"
                 icon="AllIcons.Actions.Restart">
@@ -96,7 +108,7 @@
                 id="Vo.Modules.Upload"
                 class="com.github.nirro01.vointellijplugin.actions.sftp.UploadJBossModulesAction"
                 text="Upload JBoss Module Jars"
-                description="Upload JBoss Module Jars"
+                description="Upload JBoss module jars"
                 icon="AllIcons.Actions.Upload">
             <add-to-group group-id="Vo.Rightv.Deploy" anchor="first"/>
         </action>
