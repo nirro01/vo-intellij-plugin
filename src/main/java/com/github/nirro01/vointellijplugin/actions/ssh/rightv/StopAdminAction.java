@@ -4,12 +4,13 @@ import com.github.nirro01.vointellijplugin.settings.rightv.RightvSettingsState;
 
 public class StopAdminAction extends AbstractRightvSSHAction {
 
-    public StopAdminAction() {
-        super(RightvSettingsState.getInstance().getJbossDirectory() + "/bin/jboss_init_RIGHTV.sh stop admin");
-    }
-
     @Override
     public String progressBarTitle() {
         return "Stop Admin";
+    }
+
+    @Override
+    public String getCommand() {
+        return RightvSettingsState.getInstance().getJbossDirectory() + "/bin/jboss_init_RIGHTV.sh stop admin";
     }
 }

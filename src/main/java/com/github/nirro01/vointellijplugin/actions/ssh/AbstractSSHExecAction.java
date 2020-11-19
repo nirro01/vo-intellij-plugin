@@ -17,27 +17,19 @@ import java.io.ByteArrayOutputStream;
 
 public abstract class AbstractSSHExecAction extends AnAction implements BackgroundAction {
 
-    private final String command;
-    private final VMDetails vmDetails;
-
-    public AbstractSSHExecAction(String command, VMDetails vmDetails) {
-        super();
-        this.command = command;
-        this.vmDetails = vmDetails;
-    }
-
     @Override
     public final void actionPerformed(@NotNull AnActionEvent e) {
         ProgressManager.getInstance().run(new Task.WithResult.Backgroundable(e.getProject(), progressBarTitle()) {
             public void run(@NotNull ProgressIndicator progressIndicator) {
                 progressIndicator.setIndeterminate(false);
-                runSSHCommand(command, progressIndicator);
+                runSSHCommand(getCommand(), progressIndicator);
 
             }
         });
     }
 
     private void runSSHCommand(String command, ProgressIndicator progressIndicator) {
+        VMDetails vmDetails = getVMDetails();
         NotificationService.sendInfo("SSH Exec attempt... ", vmDetails.buildLogMessage() + ", command: " + command);
         Session session = null;
         ChannelExec channel = null;
@@ -78,5 +70,9 @@ public abstract class AbstractSSHExecAction extends AnAction implements Backgrou
             }
         }
     }
+
+    public abstract VMDetails getVMDetails();
+
+    public abstract String getCommand();
 
 }

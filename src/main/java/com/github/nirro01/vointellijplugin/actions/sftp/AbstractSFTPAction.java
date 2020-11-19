@@ -19,12 +19,6 @@ import java.util.List;
 
 public abstract class AbstractSFTPAction extends AnAction implements BackgroundAction {
 
-    private final VMDetails vmDetails;
-
-    public AbstractSFTPAction(VMDetails vmDetails) {
-        this.vmDetails = vmDetails;
-    }
-
     @Override
     public final void actionPerformed(@NotNull AnActionEvent e) {
         ProgressManager.getInstance().run(new Task.WithResult.Backgroundable(e.getProject(), progressBarTitle()) {
@@ -37,6 +31,7 @@ public abstract class AbstractSFTPAction extends AnAction implements BackgroundA
     }
 
     private void transferFiles(ProgressIndicator progressIndicator) {
+        VMDetails vmDetails = getVMDetails();
         NotificationService.sendInfo("SFTP Transfer attempt... ", vmDetails.buildLogMessage());
         Session session = null;
         Channel channel = null;
@@ -83,4 +78,5 @@ public abstract class AbstractSFTPAction extends AnAction implements BackgroundA
 
     public abstract List<Pair<String, String>> filesAndDestinationDefinition();
 
+    public abstract VMDetails getVMDetails();
 }

@@ -67,13 +67,6 @@ public class CompassSettingsConfigurable implements Configurable {
         validateNumber(mySettingsComponent.getSshPortText(), SSH_PORT_LABEL);
         validateNotEmpty(mySettingsComponent.getJbossDirectoryText(), JBOSS_DIRECTORY_LABEL);
         validateNotEmpty(mySettingsComponent.getLocalCompassPolo1DevDirectoryText(), LOCAL_COMPASS_SOURCES_DIRECTORY_LABEL);
-        validateDirectory(mySettingsComponent.getLocalCompassPolo1DevDirectoryText(), LOCAL_COMPASS_SOURCES_DIRECTORY_LABEL);
-    }
-
-    private void validateDirectory(String text, String label) throws ConfigurationException {
-        if (!text.trim().endsWith("polo-3.1-dev")) {
-            throw new ConfigurationException(label + " is not a \"sources\" folder");
-        }
     }
 
     private void validateNumber(String text, String label) throws ConfigurationException {

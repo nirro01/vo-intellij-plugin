@@ -5,11 +5,12 @@ import com.github.nirro01.vointellijplugin.actions.sftp.AbstractSFTPAction;
 import com.github.nirro01.vointellijplugin.settings.compass.CompassSettingsState;
 
 public abstract class AbstractCompassSFTPAction extends AbstractSFTPAction {
-    public AbstractCompassSFTPAction() {
-        super(new VMDetails(
+    @Override
+    public VMDetails getVMDetails() {
+        return new VMDetails(
                 CompassSettingsState.getInstance().getSshHost(),
                 CompassSettingsState.getInstance().getSshUser(),
                 CompassSettingsState.getInstance().getSshPassword(),
-                Integer.parseInt(CompassSettingsState.getInstance().getSshPort())));
+                Integer.parseInt(CompassSettingsState.getInstance().getSshPort()));
     }
 }

@@ -6,16 +6,12 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.project.DumbAware;
 import org.jetbrains.annotations.NotNull;
 
-public class AbstractBrowseAction extends AnAction implements DumbAware {
-
-    private String url;
-
-    public AbstractBrowseAction(String url) {
-        this.url = url;
-    }
+public abstract class AbstractBrowseAction extends AnAction implements DumbAware {
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
-        BrowserUtil.browse(url);
+        BrowserUtil.browse(getUrl());
     }
+
+    public abstract String getUrl();
 }
