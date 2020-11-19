@@ -21,7 +21,7 @@ public abstract class AbstractSFTPAction extends AnAction implements BackgroundA
 
     @Override
     public final void actionPerformed(@NotNull AnActionEvent e) {
-        ProgressManager.getInstance().run(new Task.WithResult.Backgroundable(e.getProject(), progressBarTitle()) {
+        ProgressManager.getInstance().run(new Task.WithResult.Backgroundable(e.getProject(), progressBarTitle(), false) {
             public void run(@NotNull ProgressIndicator progressIndicator) {
                 progressIndicator.setIndeterminate(false);
                 transferFiles(progressIndicator);
@@ -52,7 +52,7 @@ public abstract class AbstractSFTPAction extends AnAction implements BackgroundA
             double singleFileFraction = 0.7 / list.size();
             ChannelSftp channelSftp = (ChannelSftp) channel;
             for (Pair<String, String> pair : list) {
-                NotificationService.sendInfo("SFTP Transfer attempt... ", "from: " + pair.getFirst() + ", to: " + pair.getSecond());
+                NotificationService.sendInfo("SFTP Transfer attempt... ", "From: " + pair.getFirst() + ", To: " + pair.getSecond());
                 channelSftp.put((pair.getFirst()), pair.getSecond());
                 progressIndicator.setFraction(progressIndicator.getFraction() + singleFileFraction);
                 NotificationService.sendInfo("SFTP Transfer", "transferred " + pair.getFirst());
@@ -65,7 +65,7 @@ public abstract class AbstractSFTPAction extends AnAction implements BackgroundA
                             System.lineSeparator() +
                             e.toString() +
                             System.lineSeparator() +
-                            "Check your settings under File -> Settings -> Tools -> VO DevTools");
+                            "Check your settings under File -> Settings -> VO DevTools");
             e.printStackTrace();
         } finally {
             if (session != null) {

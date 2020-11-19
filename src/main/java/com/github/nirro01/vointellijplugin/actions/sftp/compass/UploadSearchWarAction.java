@@ -20,7 +20,7 @@ public class UploadSearchWarAction extends AbstractCompassSFTPAction {
 
         return Collections.singletonList(
                 Pair.create(get(CompassSettingsState.getInstance().getCompassSourcesDirectory(), "search", "facade", "target", "search.war").toString(),
-                        CompassSettingsState.getInstance().getJbossDirectory() + "standalone/deployments/search.war")
+                        CompassSettingsState.getInstance().getJbossDirectory() + "/standalone/deployments/search.war")
 
         );
     }

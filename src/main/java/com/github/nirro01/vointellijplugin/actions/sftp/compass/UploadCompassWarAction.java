@@ -20,7 +20,7 @@ public class UploadCompassWarAction extends AbstractCompassSFTPAction {
 
         return Collections.singletonList(
                 Pair.create(get(CompassSettingsState.getInstance().getCompassSourcesDirectory(), "facade", "target", "compass.war").toString(),
-                        CompassSettingsState.getInstance().getJbossDirectory() + "standalone/deployments/compass.war")
+                        CompassSettingsState.getInstance().getJbossDirectory() + "/standalone/deployments/compass.war")
 
         );
     }

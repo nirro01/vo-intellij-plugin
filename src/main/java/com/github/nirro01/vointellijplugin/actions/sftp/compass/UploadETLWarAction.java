@@ -20,7 +20,7 @@ public class UploadETLWarAction extends AbstractCompassSFTPAction {
 
         return Collections.singletonList(
                 Pair.create(get(CompassSettingsState.getInstance().getCompassSourcesDirectory(), "etl-scheduler", "target", "compass-etl.war").toString(),
-                        CompassSettingsState.getInstance().getJbossDirectory() + "standalone/deployments/compass-etl.war")
+                        CompassSettingsState.getInstance().getJbossDirectory() + "/standalone/deployments/compass-etl.war")
 
         );
     }

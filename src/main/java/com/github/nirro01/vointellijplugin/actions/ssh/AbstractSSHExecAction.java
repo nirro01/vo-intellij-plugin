@@ -19,7 +19,7 @@ public abstract class AbstractSSHExecAction extends AnAction implements Backgrou
 
     @Override
     public final void actionPerformed(@NotNull AnActionEvent e) {
-        ProgressManager.getInstance().run(new Task.WithResult.Backgroundable(e.getProject(), progressBarTitle()) {
+        ProgressManager.getInstance().run(new Task.WithResult.Backgroundable(e.getProject(), progressBarTitle(), false) {
             public void run(@NotNull ProgressIndicator progressIndicator) {
                 progressIndicator.setIndeterminate(false);
                 runSSHCommand(getCommand(), progressIndicator);
@@ -59,7 +59,7 @@ public abstract class AbstractSSHExecAction extends AnAction implements Backgrou
                             System.lineSeparator() +
                             e.toString() +
                             System.lineSeparator() +
-                            "Check your settings under File -> Settings -> Tools -> VO DevTools");
+                            "Check your settings under File -> Settings -> VO DevTools");
             e.printStackTrace();
         } finally {
             if (session != null) {
