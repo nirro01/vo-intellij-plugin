@@ -52,6 +52,7 @@ public abstract class AbstractSFTPAction extends AnAction implements BackgroundA
             double singleFileFraction = 0.7 / list.size();
             ChannelSftp channelSftp = (ChannelSftp) channel;
             for (Pair<String, String> pair : list) {
+                NotificationService.sendInfo("SFTP Transfer attempt... ", "from: " + pair.getFirst() + ", to: " + pair.getSecond());
                 channelSftp.put((pair.getFirst()), pair.getSecond());
                 progressIndicator.setFraction(progressIndicator.getFraction() + singleFileFraction);
                 NotificationService.sendInfo("SFTP Transfer", "transferred " + pair.getFirst());

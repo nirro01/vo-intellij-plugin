@@ -11,6 +11,6 @@ public class StartCompassAction extends AbstractCompassSSHAction {
 
     @Override
     public String getCommand() {
-        return CompassSettingsState.getInstance().getJbossDirectory() + "/bin/compass.sh &";
+        return CompassSettingsState.getInstance().getJbossDirectory() + "/bin/compass.sh > /dev/null &";
     }
 }
