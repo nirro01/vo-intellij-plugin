@@ -26,7 +26,7 @@ public class CompassSettingsComponent {
     private JBTextField sshPasswordText;
     private JBTextField sshPortText;
     private JBTextField jbossDirectoryText;
-    private TextFieldWithBrowseButton localCompassPolo1DevDirectoryText;
+    private TextFieldWithBrowseButton localCompassDirectoryText;
 
     public CompassSettingsComponent() {
         initPanel();
@@ -39,11 +39,11 @@ public class CompassSettingsComponent {
                 .addSeparator()
                 .addLabeledComponent(new JBLabel(JBOSS_DIRECTORY_LABEL), jbossDirectoryText, 1, false)
                 .addLabeledComponent(new JBLabel(), new JBLabel(TEXT_2), 1, false)
-                .addLabeledComponent(new JBLabel(LOCAL_COMPASS_SOURCES_DIRECTORY_LABEL), localCompassPolo1DevDirectoryText, 1, false)
+                .addLabeledComponent(new JBLabel(LOCAL_COMPASS_SOURCES_DIRECTORY_LABEL), localCompassDirectoryText, 1, false)
                 .addLabeledComponent(new JBLabel(), new JBLabel(TEXT_3), 1, false)
                 .addComponentFillVertically(new JPanel(), 0)
                 .getPanel();
-        localCompassPolo1DevDirectoryText.addBrowseFolderListener((new TextBrowseFolderListener(FileChooserDescriptorFactory.createSingleFolderDescriptor())));
+        localCompassDirectoryText.addBrowseFolderListener((new TextBrowseFolderListener(FileChooserDescriptorFactory.createSingleFolderDescriptor())));
     }
 
     private void initPanel() {
@@ -52,7 +52,7 @@ public class CompassSettingsComponent {
         sshPasswordText = new JBTextField();
         sshPortText = new JBTextField();
         jbossDirectoryText = new JBTextField();
-        localCompassPolo1DevDirectoryText = new TextFieldWithBrowseButton();
+        localCompassDirectoryText = new TextFieldWithBrowseButton();
     }
 
     public JPanel getPanel() {
@@ -109,11 +109,11 @@ public class CompassSettingsComponent {
     }
 
     @NotNull
-    public String getLocalCompassPolo1DevDirectoryText() {
-        return localCompassPolo1DevDirectoryText.getText();
+    public String getLocalCompassDirectoryText() {
+        return localCompassDirectoryText.getText();
     }
 
-    public void setLocalCompassPolo1DevDirectoryText(@NotNull String newText) {
-        localCompassPolo1DevDirectoryText.setText(newText);
+    public void setLocalCompassDirectoryText(@NotNull String newText) {
+        localCompassDirectoryText.setText(newText);
     }
 }
