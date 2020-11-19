@@ -1,4 +1,6 @@
-package com.github.nirro01.vointellijplugin.actions.browse;
+package com.github.nirro01.vointellijplugin.actions.browse.leonardo;
+
+import com.github.nirro01.vointellijplugin.actions.browse.AbstractBrowseAction;
 
 import static com.github.nirro01.vointellijplugin.actions.browse.Constants.DEPLOY_TEMPORARY_NAMESPACE;
 
