@@ -77,14 +77,6 @@
             <add-to-group group-id="vo.rightv.jboss" anchor="first"/>
         </action>
         <action
-                id="vo.rightv.jboss.restart-admin"
-                class="com.github.nirro01.vointellijplugin.actions.ssh.rightv.RestartAdminAction"
-                text="Restart Admin"
-                description="Restart the admin JBoss process in your All-in-one VM"
-                icon="AllIcons.Actions.Restart">
-            <add-to-group group-id="vo.rightv.jboss" anchor="first"/>
-        </action>
-        <action
                 id="vo.rightv.jboss.stop-rte"
                 class="com.github.nirro01.vointellijplugin.actions.ssh.rightv.StopRTEAction"
                 text="Stop RTE"
@@ -98,14 +90,6 @@
                 text="Start RTE"
                 description="Starts the rte JBoss process in your All-in-one VM"
                 icon="AllIcons.Toolwindows.ToolWindowRun">
-            <add-to-group group-id="vo.rightv.jboss" anchor="first"/>
-        </action>
-        <action
-                id="vo.rightv.jboss.restart-rte"
-                class="com.github.nirro01.vointellijplugin.actions.ssh.rightv.RestartRTEAction"
-                text="Restart RTE"
-                description="Restart the rte JBoss process in your All-in-one VM"
-                icon="AllIcons.Actions.Restart">
             <add-to-group group-id="vo.rightv.jboss" anchor="first"/>
         </action>
         <action
