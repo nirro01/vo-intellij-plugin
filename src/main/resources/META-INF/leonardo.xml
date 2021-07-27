@@ -1,0 +1,28 @@
+<idea-plugin>
+    <actions>
+        <group id="vo.leonardo" text="Leonardo" popup="true">
+            <add-to-group group-id="vo" anchor="last"/>
+        </group>
+        <action
+                id="vo.leonardo.create-temporary-namespace"
+                class="com.github.nirro01.vointellijplugin.actions.browse.leonardo.DeployTemporaryNamespaceAction"
+                text="Deploy Temporary Namespace"
+                description="Open create temporary namespace job in jenkins">
+            <add-to-group group-id="vo.leonardo" anchor="first"/>
+        </action>
+        <action
+                id="vo.leonardo.delete-temporary-namespace"
+                class="com.github.nirro01.vointellijplugin.actions.browse.leonardo.DeleteTemporaryNamespaceAction"
+                text="Delete Temporary Namespace"
+                description="Open delete temporary namespace job in jenkins">
+            <add-to-group group-id="vo.leonardo" anchor="last"/>
+        </action>
+        <action
+                id="vo.leonardo.leonardo-links"
+                class="com.github.nirro01.vointellijplugin.actions.browse.leonardo.LeonardoLinksAction"
+                text="Leonardo Links"
+                description="Find microservice links - git / jenkins / swagger / sonar">
+            <add-to-group group-id="vo.leonardo" anchor="first"/>
+        </action>
+    </actions>
+</idea-plugin>

@@ -1,0 +1,71 @@
+<idea-plugin>
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationConfigurable parentId="voDevtools"
+                                 instance="com.github.nirro01.vointellijplugin.settings.compass.CompassSettingsConfigurable"
+                                 id="CompassSettings"
+                                 displayName="COMPASS"/>
+        <applicationService
+                serviceImplementation="com.github.nirro01.vointellijplugin.settings.compass.CompassSettingsState"/>
+    </extensions>
+    <actions>
+        <group id="vo.compass" text="Compass" popup="true">
+            <add-to-group group-id="vo" anchor="first"/>
+        </group>
+        <group id="vo.compass.jboss" text="JBoss" popup="true">
+            <add-to-group group-id="vo.compass" anchor="last"/>
+        </group>
+        <group id="vo.compass.deploy" text="Deploy" popup="true">
+            <add-to-group group-id="vo.compass" anchor="last"/>
+        </group>
+        <group id="vo.compass.links" text="Links" popup="true">
+            <add-to-group group-id="vo.compass" anchor="last"/>
+        </group>
+        <action
+                id="vo.compass.jboss.stop-compass"
+                class="com.github.nirro01.vointellijplugin.actions.ssh.compass.StopCompassAction"
+                text="Stop Compass"
+                description="Stop Compass JBoss process in your All-in-one VM"
+                icon="AllIcons.Process.Stop">
+            <add-to-group group-id="vo.compass.jboss" anchor="first"/>
+        </action>
+        <action
+                id="vo.compass.jboss.start-compass"
+                class="com.github.nirro01.vointellijplugin.actions.ssh.compass.StartCompassAction"
+                text="Start Compass"
+                description="Starts Compass JBoss process in your All-in-one VM"
+                icon="AllIcons.Toolwindows.ToolWindowRun">
+            <add-to-group group-id="vo.compass.jboss" anchor="first"/>
+        </action>
+        <action
+                id="vo.compass.deploy.compass-war"
+                class="com.github.nirro01.vointellijplugin.actions.sftp.compass.UploadCompassWarAction"
+                text="Upload Compass War"
+                description="Upload compass war"
+                icon="AllIcons.Actions.Upload">
+            <add-to-group group-id="vo.compass.deploy" anchor="first"/>
+        </action>
+        <action
+                id="vo.compass.deploy.search-war"
+                class="com.github.nirro01.vointellijplugin.actions.sftp.compass.UploadSearchWarAction"
+                text="Upload Search War"
+                description="Upload Search war"
+                icon="AllIcons.Actions.Upload">
+            <add-to-group group-id="vo.compass.deploy" anchor="first"/>
+        </action>
+        <action
+                id="vo.compass.deploy.etl-war"
+                class="com.github.nirro01.vointellijplugin.actions.sftp.compass.UploadETLWarAction"
+                text="Upload ETL War"
+                description="Upload ETL war"
+                icon="AllIcons.Actions.Upload">
+            <add-to-group group-id="vo.compass.deploy" anchor="last"/>
+        </action>
+        <action
+                id="vo.compass.links.compass-build"
+                class="com.github.nirro01.vointellijplugin.actions.browse.compass.CompassJenkinsBuildAction"
+                text="Jenkins Build"
+                description="Open compass build job in jenkins">
+            <add-to-group group-id="vo.compass.links" anchor="last"/>
+        </action>
+    </actions>
+</idea-plugin>
